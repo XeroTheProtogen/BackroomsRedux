@@ -1,8 +1,10 @@
 package keno.backrooms_redux;
 
+import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.registry.BRCommonRegistry;
+import keno.backrooms_redux.world.biome.BRBiomes;
+import keno.backrooms_redux.world.chunk.BRChunkGenerators;
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,9 @@ public class BackroomsRedux implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		BRCommonRegistry.init();
+		BRItemGroup.registerItemGroups();
+		BRChunkGenerators.init();
+		BRBiomes.registerBiomes();
 	}
 
 	// When retrieving things from redux, use this static method
