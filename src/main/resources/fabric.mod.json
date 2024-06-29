@@ -1,0 +1,46 @@
+{
+	"schemaVersion": 1,
+	"id": "backrooms_redux",
+	"version": "${version}",
+	"name": "Backrooms: Redux",
+	"description": "This mod continues the legacy of Forameus's 'Faithful Backrooms' and Ludocrypt's 'The Corners' \nby adding backroom levels while being performant and enjoyable",
+	"authors": [
+		"Keno"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"contributors": [
+		"Credits to V-Fast for making it possible to use LimLib in fabric",
+		"Ludocrypt for being the original creator of LimLib"
+	],
+	"license": "LGPL-3.0",
+	"icon": "assets/backrooms_redux/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"keno.backrooms_redux.BackroomsRedux"
+		],
+		"client": [
+			"keno.backrooms_redux.client.BRClient"
+		],
+		"fabric-datagen": [
+			"keno.backrooms_redux.BackroomsReduxDataGenerator"
+		],
+		"limlib:registrar": [
+			"keno.backrooms_redux.registry.BRRegistrar"
+		]
+	},
+	"mixins": [
+		"backrooms_redux.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+	}
+}
