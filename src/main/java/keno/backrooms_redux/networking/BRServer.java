@@ -1,5 +1,6 @@
 package keno.backrooms_redux.networking;
 
+import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRRegistrar;
 import net.fabricmc.api.DedicatedServerModInitializer;
@@ -19,16 +20,13 @@ public class BRServer implements DedicatedServerModInitializer {
 
             server.execute(() -> {
                 Vec3d backrooms_pos = new Vec3d(pos.getX(), 2, pos.getZ());
-                if (server.getWorld(BRRegistrar.LEVEL_0_WORLD) != null) {
-                    ServerWorld backrooms = server.getWorld(BRRegistrar.LEVEL_0_WORLD);
-                    assert backrooms != null;
-                    TeleportTarget target = new TeleportTarget(backrooms_pos, player.getVelocity(), player.getYaw(), player.getPitch());
-                    LimlibTravelling.travelTo(player, backrooms, target, SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, 0.8f, 0.9f);
-                    if (server.getGameRules().getBoolean(BRCommonRegistry.RESPAWN_IN_BACKROOMS)) {
-                        BlockPos new_spawn = new BlockPos(Math.round((float) backrooms_pos.getX()),
-                                Math.round((float) backrooms_pos.getY()), Math.round((float) backrooms_pos.getZ()));
-                        player.setSpawnPoint(BRRegistrar.LEVEL_0_WORLD, new_spawn, player.getSpawnAngle(), true, false);
-                    }
+                ServerWorld backrooms = server.getWorld(BRRegistrar.LEVEL_0_WORLD);
+                TeleportTarget target = new TeleportTarget(backrooms_pos, player.getVelocity(), player.getYaw(), player.getPitch());
+                LimlibTravelling.travelTo(player, backrooms, target, SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, 0.8f, 0.9f);
+                if (server.getGameRules().getBoolean(BRCommonRegistry.RESPAWN_IN_BACKROOMS)) {
+                    BlockPos new_spawn = new BlockPos(Math.round((float) backrooms_pos.getX()),
+                            Math.round((float) backrooms_pos.getY()), Math.round((float) backrooms_pos.getZ()));
+                    player.setSpawnPoint(BRRegistrar.LEVEL_0_WORLD, new_spawn, player.getSpawnAngle(), true, false);
                 }
             });
         });

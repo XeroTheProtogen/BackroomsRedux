@@ -2,6 +2,7 @@ package keno.backrooms_redux.registry;
 
 import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.block.GlitchingBlock;
+import keno.backrooms_redux.block.OverworldGlitchingBlock;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -31,6 +32,8 @@ public class BRCommonRegistry {
             new StairsBlock(BRCommonRegistry.SOGGY_CARPET.getDefaultState(), MOIST_CARPET_SETTINGS));
     public static final Block TEST_GLITCH_BLOCK = registerBlock("test_glitch_block",
             new GlitchingBlock(FabricBlockSettings.copy(Blocks.BEDROCK), BRRegistrar.LEVEL_0_WORLD));
+    public static final Block OVERWORLD_GLITCHING_BLOCK = registerBlock("overworld_glitching_block",
+            new OverworldGlitchingBlock(FabricBlockSettings.copy(Blocks.BEDROCK)));
 
     //Tags
     public static final TagKey<Block> CORRUPTIBLE_BLOCKS = TagKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("corruptible_blocks"));

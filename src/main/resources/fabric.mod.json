@@ -38,7 +38,6 @@
 	"mixins": [
 		"backrooms_redux.mixins.json"
 	],
-	"accessWidener": "backrooms_redux.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.20.4",

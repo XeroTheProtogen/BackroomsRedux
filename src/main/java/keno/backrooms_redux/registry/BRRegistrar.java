@@ -19,7 +19,6 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-import java.util.List;
 import java.util.OptionalLong;
 
 public class BRRegistrar implements LimlibRegistrar {
