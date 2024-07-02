@@ -1,7 +1,10 @@
 {
+  "backrooms_redux.level_0": "Level 0",
   "block.backrooms_redux.moist_carpet": "Moist Carpet",
   "block.backrooms_redux.moist_carpet_stairs": "Moist Carpet Stairs",
   "block.backrooms_redux.monoyellow_wallpaper": "Monoyellow Wallpaper",
   "block.backrooms_redux.roof_tile": "Roof Tile",
+  "block.backrooms_redux.soggy_carpet": "Soggy Carpet",
+  "block.backrooms_redux.soggy_carpet_stairs": "Soggy Carpet Stairs",
   "itemGroup.level_0": "Level 0"
 }

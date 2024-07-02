@@ -11,12 +11,14 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 public class BRItemGroup {
     public static final ItemGroup LEVEL_0_ITEMS = registerItemGroup("level_0",
             () -> new ItemStack(BRCommonRegistry.MONOYELLOW_WALLPAPER), FabricItemGroup.builder().entries((displayContext, entries) ->
                             add(entries, BRCommonRegistry.MOIST_CARPET, BRCommonRegistry.MOIST_CARPET_STAIRS,
+                                    BRCommonRegistry.SOGGY_CARPET, BRCommonRegistry.SOGGY_CARPET_STAIRS,
                                     BRCommonRegistry.ROOF_TILE, BRCommonRegistry.MONOYELLOW_WALLPAPER)));
 
     public static final RegistryKey<ItemGroup> LEVEL_0_GROUP_KEY = getItemGroupKey(BRItemGroup.LEVEL_0_ITEMS);
@@ -26,14 +28,16 @@ public class BRItemGroup {
                 builder.displayName(Text.translatable("itemGroup." + name)).icon(icon).build());
     }
 
+    //A method that allows you to use a arg parameter to add a collection of items
     private static void add(ItemGroup.Entries entries, ItemConvertible... items) {
-        for (ItemConvertible item : items) {
-            entries.add(item);
-        }
+        Arrays.stream(items).forEach(entries::add);
     }
 
     public static RegistryKey<ItemGroup> getItemGroupKey(ItemGroup group) {
-        return Registries.ITEM_GROUP.getKey(group).get();
+        if (Registries.ITEM_GROUP.getKey(group).isPresent()) {
+            return Registries.ITEM_GROUP.getKey(group).get();
+        }
+        return null;
     }
 
     public static void registerItemGroups() {

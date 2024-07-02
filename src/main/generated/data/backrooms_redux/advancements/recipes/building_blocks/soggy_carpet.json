@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_soggy_carpet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "backrooms_redux:soggy_carpet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:soggy_carpet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_soggy_carpet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:soggy_carpet"
+    ]
+  }
+}

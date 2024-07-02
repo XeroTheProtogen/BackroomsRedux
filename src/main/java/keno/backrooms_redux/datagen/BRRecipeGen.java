@@ -17,6 +17,7 @@ public class BRRecipeGen extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter exporter) {
         offerStairsRecipe(exporter, BRCommonRegistry.MOIST_CARPET_STAIRS, BRCommonRegistry.MOIST_CARPET);
+        offerStairsRecipe(exporter, BRCommonRegistry.SOGGY_CARPET_STAIRS, BRCommonRegistry.SOGGY_CARPET);
     }
 
     private void offerStairsRecipe(RecipeExporter exporter, @NotNull ItemConvertible output, @NotNull ItemConvertible input) {

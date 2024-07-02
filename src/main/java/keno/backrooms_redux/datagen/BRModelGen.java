@@ -20,7 +20,11 @@ public class BRModelGen extends FabricModelProvider {
     private void moistCarpetModels(BlockStateModelGenerator generator) {
         BlockStateModelGenerator.BlockTexturePool moist_carpet = generator.registerCubeAllModelTexturePool(
                 BRCommonRegistry.MOIST_CARPET);
+        BlockStateModelGenerator.BlockTexturePool soggy_carpet = generator.registerCubeAllModelTexturePool(
+                BRCommonRegistry.SOGGY_CARPET);
+
         moist_carpet.stairs(BRCommonRegistry.MOIST_CARPET_STAIRS);
+        soggy_carpet.stairs(BRCommonRegistry.SOGGY_CARPET_STAIRS);
     }
 
     //All custom blocks used in level 0 and associated sublevels have their models generated here

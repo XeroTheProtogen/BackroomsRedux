@@ -1,6 +1,5 @@
 package keno.backrooms_redux;
 
-import keno.backrooms_redux.datagen.BRBlockTagGen;
 import keno.backrooms_redux.datagen.BRLangGen;
 import keno.backrooms_redux.datagen.BRModelGen;
 import keno.backrooms_redux.datagen.BRRecipeGen;
@@ -14,6 +13,5 @@ public class BackroomsReduxDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(BRModelGen::new);
 		pack.addProvider(BRLangGen::new);
 		pack.addProvider(BRRecipeGen::new);
-		pack.addProvider(BRBlockTagGen::new);
 	}
 }
