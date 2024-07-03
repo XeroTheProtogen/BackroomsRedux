@@ -3,7 +3,7 @@ package keno.backrooms_redux.networking;
 import keno.backrooms_redux.BackroomsRedux;
 import net.minecraft.util.Identifier;
 
-public class BRPackets {
+public final class BRPackets {
     //Client-to-server packet identifiers
     public static final Identifier TELEPORT_PLAYER_TO_BACKROOMS = BackroomsRedux.modLoc("teleport_player_to_backrooms");
     //Server-to-client packet identifiers

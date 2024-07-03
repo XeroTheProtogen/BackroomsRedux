@@ -41,6 +41,8 @@ public class BRCommonRegistry {
     //Gamerules
     public static final GameRules.Key<GameRules.BooleanRule> RESPAWN_IN_BACKROOMS =
             GameRuleRegistry.register("spawn_in_backrooms", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
+    public static final GameRules.Key<GameRules.BooleanRule> CLEAR_INVENTORY_ON_BACKROOMS_ENTRY =
+            GameRuleRegistry.register("clear_inventory_backroom_entry", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(false));
 
     //Registry methods
     //If you just want a plain ol' item, use this method

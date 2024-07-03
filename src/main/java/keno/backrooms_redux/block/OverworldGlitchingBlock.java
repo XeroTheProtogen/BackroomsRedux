@@ -24,10 +24,11 @@ public class OverworldGlitchingBlock extends Block {
         if (world.isClient()) return super.onUse(state, world, pos, player, hand, hit);
 
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            BlockPos playerPos = serverPlayer.getBlockPos();
             PacketByteBuf packet = PacketByteBufs.create();
-            packet.writeBlockPos(playerPos);
+            packet.writeBlockPos(serverPlayer.getBlockPos());
+
             ServerPlayNetworking.send(serverPlayer, BRPackets.OPEN_NOCLIP_WARNING_SCREEN, packet);
+
         }
         return ActionResult.success(true);
     }

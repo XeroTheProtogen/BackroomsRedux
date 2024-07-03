@@ -10,25 +10,22 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 
 @Environment(EnvType.CLIENT)
 public class NoclipWarningScreen extends Screen {
-    private BlockPos pos;
     private ButtonWidget button;
 
-    public NoclipWarningScreen(Text title, BlockPos pos) {
+    public NoclipWarningScreen(Text title) {
         super(title);
-        this.pos = pos;
     }
+
 
     @Override
     protected void init() {
         super.init();
         this.button = ButtonWidget.builder(Text.translatable("backrooms_redux.gui.agreement"), button -> {
-            PacketByteBuf packet = PacketByteBufs.create();
-            packet.writeBlockPos(pos);
-
+            PacketByteBuf packet = PacketByteBufs.empty();
+            this.client.setScreen(null);
             ClientPlayNetworking.send(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS, packet);
         }).position(90, 90).dimensions(50, 70, 100, 120).build();
         this.addDrawableChild(button);
