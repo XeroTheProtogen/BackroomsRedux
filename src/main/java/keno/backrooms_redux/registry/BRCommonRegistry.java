@@ -32,7 +32,9 @@ public class BRCommonRegistry {
             new StairsBlock(BRCommonRegistry.SOGGY_CARPET.getDefaultState(), MOIST_CARPET_SETTINGS));
     public static final Block TEST_GLITCH_BLOCK = registerBlock("test_glitch_block",
             new GlitchingBlock(FabricBlockSettings.copy(Blocks.BEDROCK), BRRegistrar.LEVEL_0_WORLD));
-    public static final Block OVERWORLD_GLITCHING_BLOCK = registerBlock("overworld_glitching_block",
+    public static final Block GLITCHED_PLANK = registerBlock("glitched_planks",
+            new OverworldGlitchingBlock(FabricBlockSettings.copy(Blocks.BEDROCK)));
+    public static final Block GLITCHED_STONE = registerBlock("glitched_stone",
             new OverworldGlitchingBlock(FabricBlockSettings.copy(Blocks.BEDROCK)));
 
     //Tags

@@ -14,6 +14,12 @@ public class BRModelGen extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         level0BlockModels(blockStateModelGenerator);
+        miscBlockModels(blockStateModelGenerator);
+    }
+
+    private void miscBlockModels(BlockStateModelGenerator generator) {
+        generator.registerSimpleCubeAll(BRCommonRegistry.GLITCHED_STONE);
+        generator.registerSimpleCubeAll(BRCommonRegistry.GLITCHED_PLANK);
     }
 
     //Moist carpet block models

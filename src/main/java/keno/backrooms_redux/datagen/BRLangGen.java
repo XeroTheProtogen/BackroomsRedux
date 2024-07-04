@@ -1,5 +1,6 @@
 package keno.backrooms_redux.datagen;
 
+import keno.backrooms_redux.client.screens.NoclipWarningScreen;
 import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRRegistrar;
@@ -14,6 +15,9 @@ public class BRLangGen extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
         level0RelatedText(translationBuilder);
+        guiText(translationBuilder);
+        gameRuleText(translationBuilder);
+        miscText(translationBuilder);
     }
 
     private void level0RelatedText(TranslationBuilder builder) {
@@ -25,6 +29,21 @@ public class BRLangGen extends FabricLanguageProvider {
         builder.add(BRCommonRegistry.SOGGY_CARPET_STAIRS, "Soggy Carpet Stairs");
         builder.add(BRCommonRegistry.SOGGY_CARPET, "Soggy Carpet");
         builder.add(BRRegistrar.LEVEL_0_WORLD.getValue().toTranslationKey(), "Level 0: The Tutorial");
-        builder.add(BRCommonRegistry.RESPAWN_IN_BACKROOMS.getTranslationKey(), "Respawn In The Backrooms");
+    }
+
+    private void guiText(TranslationBuilder builder) {
+        builder.add(NoclipWarningScreen.AGREE_KEY, "Yes");
+        builder.add(NoclipWarningScreen.WARNING_KEY, "(Interacting with it will have dire consequences, do you touch the block?)");
+        builder.add(NoclipWarningScreen.OMEN_KEY, "Reality unfolds around you...");
+    }
+
+    private void gameRuleText(TranslationBuilder builder) {
+        builder.add(BRCommonRegistry.CLEAR_INVENTORY_ON_BACKROOMS_ENTRY.getTranslationKey(), "clearInvOnBackroomsEntry");
+        builder.add(BRCommonRegistry.RESPAWN_IN_BACKROOMS.getTranslationKey(), "respawnInBackrooms");
+    }
+
+    private void miscText(TranslationBuilder builder) {
+        builder.add(BRCommonRegistry.GLITCHED_PLANK.getTranslationKey(), "Glitched Planks");
+        builder.add(BRCommonRegistry.GLITCHED_STONE.getTranslationKey(), "Glitched Stone");
     }
 }

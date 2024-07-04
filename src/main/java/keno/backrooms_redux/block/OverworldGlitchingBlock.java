@@ -28,7 +28,6 @@ public class OverworldGlitchingBlock extends Block {
             packet.writeBlockPos(serverPlayer.getBlockPos());
 
             ServerPlayNetworking.send(serverPlayer, BRPackets.OPEN_NOCLIP_WARNING_SCREEN, packet);
-
         }
         return ActionResult.success(true);
     }

@@ -1,10 +1,17 @@
 {
-  "backrooms_redux.level_0": "Level 0",
+  "backrooms_redux.gui.agreement": "Yes",
+  "backrooms_redux.gui.omen": "Reality unfolds around you...",
+  "backrooms_redux.gui.warning": "(Interacting with it will have dire consequences, do you touch the block?)",
+  "backrooms_redux.level_0": "Level 0: The Tutorial",
+  "block.backrooms_redux.glitched_planks": "Glitched Planks",
+  "block.backrooms_redux.glitched_stone": "Glitched Stone",
   "block.backrooms_redux.moist_carpet": "Moist Carpet",
   "block.backrooms_redux.moist_carpet_stairs": "Moist Carpet Stairs",
   "block.backrooms_redux.monoyellow_wallpaper": "Monoyellow Wallpaper",
   "block.backrooms_redux.roof_tile": "Roof Tile",
   "block.backrooms_redux.soggy_carpet": "Soggy Carpet",
   "block.backrooms_redux.soggy_carpet_stairs": "Soggy Carpet Stairs",
+  "gamerule.clear_inventory_backroom_entry": "clearInvOnBackroomsEntry",
+  "gamerule.spawn_in_backrooms": "respawnInBackrooms",
   "itemGroup.level_0": "Level 0"
 }
