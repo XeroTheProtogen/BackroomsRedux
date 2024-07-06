@@ -8,7 +8,12 @@ import keno.backrooms_redux.world.chunk.Level0ChunkGenerator;
 import net.ludocrypt.limlib.api.LimlibRegistrar;
 import net.ludocrypt.limlib.api.LimlibRegistryHooks;
 import net.ludocrypt.limlib.api.LimlibWorld;
-import net.minecraft.registry.*;
+import net.ludocrypt.limlib.api.effects.sound.SoundEffects;
+import net.ludocrypt.limlib.api.effects.sound.reverb.StaticReverbEffect;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -19,6 +24,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
+import java.util.Optional;
 import java.util.OptionalLong;
 
 public class BRRegistrar implements LimlibRegistrar {
@@ -39,10 +45,19 @@ public class BRRegistrar implements LimlibRegistrar {
 
     public static final RegistryKey<World> LEVEL_0_WORLD = RegistryKey.of(RegistryKeys.WORLD, LEVEL_O_ID);
 
+    public static final SoundEffects LEVEL_0_EFFECTS = new SoundEffects(
+            Optional.of(new StaticReverbEffect.Builder().setDecayTime(5.0f).build()),
+            Optional.empty(),
+            Optional.empty());
 
     @Override
     public void registerHooks() {
         Registry.register(LimlibWorld.LIMLIB_WORLD, LEVEL_O_ID, LEVEL_0);
+
+        LimlibRegistryHooks.hook(SoundEffects.SOUND_EFFECTS_KEY, (infoLookup, registryKey, registry) ->
+            registry.add(RegistryKey.of(SoundEffects.SOUND_EFFECTS_KEY, LEVEL_O_ID),
+                    LEVEL_0_EFFECTS,
+                    Lifecycle.stable()));
 
         LimlibRegistryHooks.hook(RegistryKeys.BIOME, ((infoLookup, registryKey, registry) -> {
             RegistryEntryLookup<PlacedFeature> features = infoLookup.getRegistryInfo(RegistryKeys.PLACED_FEATURE).get().entryLookup();

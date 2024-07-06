@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "backrooms_redux:block/roof_tile",
+    "end": "backrooms_redux:block/tile_light_lit"
+  }
+}

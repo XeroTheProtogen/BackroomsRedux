@@ -4,6 +4,7 @@ import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.networking.BRPackets;
 import keno.backrooms_redux.networking.TeleportPlayer;
 import keno.backrooms_redux.registry.BRCommonRegistry;
+import keno.backrooms_redux.registry.BRSoundEvents;
 import keno.backrooms_redux.world.biome.BRBiomes;
 import keno.backrooms_redux.world.chunk.BRChunkGenerators;
 import net.fabricmc.api.ModInitializer;
@@ -28,10 +29,10 @@ public class BackroomsRedux implements ModInitializer {
 		BRItemGroup.registerItemGroups();
 		BRChunkGenerators.init();
 		BRBiomes.registerBiomes();
+		BRSoundEvents.init();
 		ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS,
 				((server, player, handler, buf, responseSender) ->
-						server.execute(()
-								-> TeleportPlayer.teleportPlayerToBackrooms(server, player))));
+						server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player))));
 	}
 
 	// When retrieving things from redux, use this static method

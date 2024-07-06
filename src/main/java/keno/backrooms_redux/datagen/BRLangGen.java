@@ -28,6 +28,7 @@ public class BRLangGen extends FabricLanguageProvider {
         builder.add(BRItemGroup.LEVEL_0_GROUP_KEY, "Level 0");
         builder.add(BRCommonRegistry.SOGGY_CARPET_STAIRS, "Soggy Carpet Stairs");
         builder.add(BRCommonRegistry.SOGGY_CARPET, "Soggy Carpet");
+        builder.add(BRCommonRegistry.TILE_LIGHT, "Tile Light");
         builder.add(BRRegistrar.LEVEL_0_WORLD.getValue().toTranslationKey(), "Level 0: The Tutorial");
     }
 

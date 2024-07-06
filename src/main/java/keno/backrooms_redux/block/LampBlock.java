@@ -12,10 +12,10 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class GenericLampBlock extends Block {
+public class LampBlock extends Block {
     public static final BooleanProperty LIT = Properties.LIT;
 
-    public GenericLampBlock(Settings settings) {
+    public LampBlock(Settings settings) {
         super(settings);
     }
 

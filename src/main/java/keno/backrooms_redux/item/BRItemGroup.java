@@ -19,7 +19,10 @@ public class BRItemGroup {
             () -> new ItemStack(BRCommonRegistry.MONOYELLOW_WALLPAPER), FabricItemGroup.builder().entries((displayContext, entries) ->
                             add(entries, BRCommonRegistry.MOIST_CARPET, BRCommonRegistry.MOIST_CARPET_STAIRS,
                                     BRCommonRegistry.SOGGY_CARPET, BRCommonRegistry.SOGGY_CARPET_STAIRS,
-                                    BRCommonRegistry.ROOF_TILE, BRCommonRegistry.MONOYELLOW_WALLPAPER)));
+                                    BRCommonRegistry.ROOF_TILE, BRCommonRegistry.MONOYELLOW_WALLPAPER,
+                                    BRCommonRegistry.TILE_LIGHT)));
+
+
 
     public static final RegistryKey<ItemGroup> LEVEL_0_GROUP_KEY = getItemGroupKey(BRItemGroup.LEVEL_0_ITEMS);
 
@@ -28,9 +31,13 @@ public class BRItemGroup {
                 builder.displayName(Text.translatable("itemGroup." + name)).icon(icon).build());
     }
 
-    //A method that allows you to use a arg parameter to add a collection of items
-    private static void add(ItemGroup.Entries entries, ItemConvertible... items) {
-        Arrays.stream(items).forEach(entries::add);
+    /**
+     * Adds a collection of items to an item group
+     * @param entries Collection of items in a {@link ItemGroup}
+     * @param items A collection of {@link ItemConvertible}s to be added to {@link ItemGroup.Entries}
+     */
+    public static void add(ItemGroup.Entries entries, ItemConvertible... items) {
+        Arrays.stream(items).distinct().forEach(entries::add);
     }
 
     public static RegistryKey<ItemGroup> getItemGroupKey(ItemGroup group) {
@@ -41,6 +48,7 @@ public class BRItemGroup {
     }
 
     public static void registerItemGroups() {
+
         BackroomsRedux.LOGGER.info("Registering item groups");
     }
 }

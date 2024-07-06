@@ -19,6 +19,7 @@ public class OverworldGlitchingBlock extends Block {
         super(settings);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.isClient()) return super.onUse(state, world, pos, player, hand, hit);

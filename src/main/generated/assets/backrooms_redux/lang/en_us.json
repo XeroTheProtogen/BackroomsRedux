@@ -11,6 +11,7 @@
   "block.backrooms_redux.roof_tile": "Roof Tile",
   "block.backrooms_redux.soggy_carpet": "Soggy Carpet",
   "block.backrooms_redux.soggy_carpet_stairs": "Soggy Carpet Stairs",
+  "block.backrooms_redux.tile_light": "Tile Light",
   "gamerule.clear_inventory_backroom_entry": "clearInvOnBackroomsEntry",
   "gamerule.spawn_in_backrooms": "respawnInBackrooms",
   "itemGroup.level_0": "Level 0"
