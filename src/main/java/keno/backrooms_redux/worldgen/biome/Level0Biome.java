@@ -1,4 +1,4 @@
-package keno.backrooms_redux.world.biome;
+package keno.backrooms_redux.worldgen.biome;
 
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.world.biome.Biome;

@@ -1,4 +1,4 @@
-package keno.backrooms_redux.world.chunk;
+package keno.backrooms_redux.worldgen.chunk;
 
 import keno.backrooms_redux.BackroomsRedux;
 import net.minecraft.registry.Registries;

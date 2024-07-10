@@ -20,6 +20,10 @@ public class BRLangGen extends FabricLanguageProvider {
         miscText(translationBuilder);
     }
 
+    private void itemText(TranslationBuilder builder) {
+        builder.add(BRCommonRegistry.ALMOND_WATER, "Almond Water");
+    }
+
     private void level0RelatedText(TranslationBuilder builder) {
         builder.add(BRCommonRegistry.MOIST_CARPET, "Moist Carpet");
         builder.add(BRCommonRegistry.MOIST_CARPET_STAIRS, "Moist Carpet Stairs");
@@ -46,5 +50,6 @@ public class BRLangGen extends FabricLanguageProvider {
     private void miscText(TranslationBuilder builder) {
         builder.add(BRCommonRegistry.GLITCHED_PLANK.getTranslationKey(), "Glitched Planks");
         builder.add(BRCommonRegistry.GLITCHED_STONE.getTranslationKey(), "Glitched Stone");
+        builder.add("backrooms_redux.sanity.beginning", "Grasping the situation, you become nervous...");
     }
 }

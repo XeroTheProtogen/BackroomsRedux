@@ -1,7 +1,10 @@
 {
   "light_hum": {
     "sounds": [
-      "backrooms_redux:light_hum"
+      {
+        "name": "backrooms_redux:level_ambiance/light_hum",
+        "stream": true
+      }
     ]
   }
 }

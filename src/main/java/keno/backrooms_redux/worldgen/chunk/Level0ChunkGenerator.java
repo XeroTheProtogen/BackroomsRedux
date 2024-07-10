@@ -1,11 +1,11 @@
-package keno.backrooms_redux.world.chunk;
+package keno.backrooms_redux.worldgen.chunk;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.block.LampBlock;
 import keno.backrooms_redux.registry.BRCommonRegistry;
-import keno.backrooms_redux.registry.BRRegistrar;
 import keno.backrooms_redux.utils.BRLootTables;
 import keno.backrooms_redux.utils.RngUtils;
 import net.ludocrypt.limlib.api.world.Manipulation;
@@ -45,24 +45,27 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
             -> chunkGenerator.biomeSource),
                     NbtGroup.CODEC.fieldOf("nbt_group").stable().forGetter((chunkGenerator)
                             -> chunkGenerator.nbtGroup)).apply(instance, instance.stable(Level0ChunkGenerator::new)));
-
     private double woolType;
-    public Level0ChunkGenerator(BiomeSource biomeSource) {
+
+    /* public Level0ChunkGenerator(BiomeSource biomeSource) {
         this(biomeSource, createNbt());
-    }
+    } */
 
     public Level0ChunkGenerator(BiomeSource biomeSource, NbtGroup nbtGroup) {
         super(biomeSource, nbtGroup);
     }
 
-    public static NbtGroup createNbt() {
-        return NbtGroup.Builder.create(BRRegistrar.LEVEL_O_ID)
-                .with("level_0_common", 1, 4) // COMMON PIECES
-                .with("level_0_uncommon", 1, 4) // UNCOMMON PIECES
-                .with("level_0_rare", 1, 1) // RARE PIECES
-                .with("level_0_manilla_room") // MANILLA ROOM PIECE
+    /* private static NbtGroup createNbt() {
+        PoolArraysSingleton singleton = PoolArraysSingleton.getInstance();
+        return NbtGroup.Builder.create(BackroomsRedux.modLoc("level_0"))
+                .with("level_0_common", singleton.getPieces("level_0_common"))
+                .with("level_0_uncommon", singleton.getPieces("level_0_uncommon"))
+                .with("level_0_rare", singleton.getPieces("level_0_rare"))
+                .with("level_0_manilla_room")
                 .build();
-    }
+    } */
+
+
 
     @Override
     public int getPlacementRadius() {
@@ -84,7 +87,12 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
             } else {
                 if (random.nextFloat() > 0.3) {
                     if (random.nextFloat() <= 0.05) {
-                        generateNbt(chunkRegion, pos, nbtGroup.pick("level_0_rare", random), Manipulation.random(random));
+                        Identifier identifier = nbtGroup.pick("level_0_rare", random);
+                        if (identifier.compareTo(BackroomsRedux.modLoc("structures/nbt/level_0/level_0_rare/level_0_chasm.nbt")) == 0) {
+                            generateNbt(chunkRegion, pos.down(15), identifier, Manipulation.random(random));
+                        } else {
+                            generateNbt(chunkRegion, pos, identifier, Manipulation.random(random));
+                        }
                     } else {
                         generateNbt(chunkRegion, pos, nbtGroup.pick("level_0_uncommon", random), Manipulation.random(random));
                     }
@@ -137,21 +145,32 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
         //If either vector in the roof block position is a multiple of 4, replace with lighting
         //White wool is treated as a placeholder
         if (state.isOf(Blocks.WHITE_WOOL)) {
-            if ((pos.getX() % 6 == 0 && pos.getZ() % 6 == 0) && (pos.getY() % 5 == 0 && pos.getY() != 5)) {
+            if ((pos.getX() % 6 == 0 && pos.getZ() % 6 == 0) && pos.getY() == 5) {
                 region.setBlockState(pos, TILE_LIGHT.getDefaultState().with(LampBlock.LIT,
                         random.nextDouble() > 0.2), Block.NOTIFY_ALL, 1);
             } else {
                 region.setBlockState(pos, BRCommonRegistry.ROOF_TILE.getDefaultState(), Block.NOTIFY_ALL, 1);
             }
         }
+
+        if (state.isOf(Blocks.DIRT)) {
+            if (random.nextBoolean()) {
+                region.setBlockState(pos, Blocks.COARSE_DIRT.getDefaultState(), Block.NOTIFY_ALL, 1);
+            }
+        }
     }
 
     @Override
     protected Identifier getContainerLootTable(LootableContainerBlockEntity container) {
-        if (container.getCachedState().isOf(Blocks.CHEST)) {
-            return BRLootTables.LEVEL_0_CHEST;
+        if (container.getCachedState().isOf(Blocks.BARREL)) {
+            return BRLootTables.LEVEL_0_BARREL;
         }
         return LootTables.EMPTY;
+    }
+
+    @Override
+    public int getMinimumY() {
+        return -64;
     }
 
     @Override

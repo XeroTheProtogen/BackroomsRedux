@@ -3,6 +3,7 @@ package keno.backrooms_redux.registry;
 import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.block.LampBlock;
 import keno.backrooms_redux.block.OverworldGlitchingBlock;
+import keno.backrooms_redux.item.AlmondWaterItem;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -12,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
@@ -40,6 +42,10 @@ public class BRCommonRegistry {
     public static final Block TILE_LIGHT = registerBlock("tile_light",
             new LampBlock(FabricBlockSettings.create().hardness(-1f).luminance(state ->
                     state.get(LampBlock.LIT) ? 12 : 0)));
+
+    //Items
+    public static final Item ALMOND_WATER = registerItem("almond_water", new AlmondWaterItem(new FabricItemSettings()
+            .maxCount(8).food(new FoodComponent.Builder().hunger(6).saturationModifier(4).alwaysEdible().build())));
 
     //Game rules
     /**When on, this gamerule forces the player's spawn to be in the backrooms on first entry*/
@@ -74,5 +80,7 @@ public class BRCommonRegistry {
     public static void init() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries ->
                 add(entries, BRCommonRegistry.GLITCHED_PLANK, BRCommonRegistry.GLITCHED_STONE));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries ->
+                add(entries, BRCommonRegistry.ALMOND_WATER));
     }
 }

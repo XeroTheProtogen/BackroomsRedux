@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.Chunk;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Author V-Fast
+/** @author V-Fast */
 public class RngUtils {
     public static Random getFromPos(ChunkRegion region, Chunk chunk, BlockPos pos) {
         int x = chunk.getPos().x;

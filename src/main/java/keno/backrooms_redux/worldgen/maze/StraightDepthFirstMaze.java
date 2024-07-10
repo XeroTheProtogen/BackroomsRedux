@@ -1,4 +1,4 @@
-package keno.backrooms_redux.world.maze;
+package keno.backrooms_redux.worldgen.maze;
 
 import com.google.common.collect.Lists;
 import net.ludocrypt.limlib.api.world.maze.DepthLikeMaze;
@@ -7,7 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import java.util.List;
 import java.util.random.RandomGenerator;
 
-//@Author - Ludocrypt (The Corners)
+/** @author Ludocrypt (The Corners) */
 public class StraightDepthFirstMaze extends DepthLikeMaze {
     public RandomGenerator generator;
     public double bias;

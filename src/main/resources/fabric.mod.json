@@ -18,6 +18,11 @@
 	"license": "LGPL-3.0",
 	"icon": "assets/backrooms_redux/icon.png",
 	"environment": "*",
+	"custom": {
+		"cardinal-components": [
+			"backrooms_redux:sanity"
+		]
+	},
 	"entrypoints": {
 		"main": [
 			"keno.backrooms_redux.BackroomsRedux"
@@ -33,6 +38,9 @@
 		],
 		"server": [
 			"keno.backrooms_redux.networking.BRServer"
+		],
+		"cardinal-components": [
+			"keno.backrooms_redux.components.BRComponentRegistry"
 		]
 	},
 	"mixins": [

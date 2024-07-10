@@ -22,8 +22,6 @@ public class BRItemGroup {
                                     BRCommonRegistry.ROOF_TILE, BRCommonRegistry.MONOYELLOW_WALLPAPER,
                                     BRCommonRegistry.TILE_LIGHT)));
 
-
-
     public static final RegistryKey<ItemGroup> LEVEL_0_GROUP_KEY = getItemGroupKey(BRItemGroup.LEVEL_0_ITEMS);
 
     private static ItemGroup registerItemGroup(String name, Supplier<ItemStack> icon, ItemGroup.Builder builder) {

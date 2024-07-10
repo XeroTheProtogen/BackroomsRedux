@@ -6,8 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 public class BRServer implements DedicatedServerModInitializer {
     @Override
     public void onInitializeServer() {
-        ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player));
-        });
+        ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS, (server, player, handler, buf, responseSender) ->
+            server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player)));
     }
 }

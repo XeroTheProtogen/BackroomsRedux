@@ -1,14 +1,18 @@
 package keno.backrooms_redux;
 
+import keno.backrooms_redux.commands.BRCommands;
 import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.networking.BRPackets;
 import keno.backrooms_redux.networking.TeleportPlayer;
 import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRSoundEvents;
-import keno.backrooms_redux.world.biome.BRBiomes;
-import keno.backrooms_redux.world.chunk.BRChunkGenerators;
+import keno.backrooms_redux.worldgen.biome.BRBiomes;
+import keno.backrooms_redux.worldgen.chunk.BRChunkGenerators;
+import keno.backrooms_redux.worldgen.piece_pools.BRPiecePools;
+import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +34,35 @@ public class BackroomsRedux implements ModInitializer {
 		BRChunkGenerators.init();
 		BRBiomes.registerBiomes();
 		BRSoundEvents.init();
+		registerPieces(PoolArraysSingleton.getInstance());
+		BRCommands.init();
 		ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS,
 				((server, player, handler, buf, responseSender) ->
 						server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player))));
 	}
 
+	private void registerPieces(PoolArraysSingleton registry) {
+		registry.addPiecesToPool(BRPiecePools.LEVEL_0_COMMON, "level_0_common_1",
+				"level_0_common_2", "level_0_common_3", "level_0_common_4");
+		registry.addPiecesToPool(BRPiecePools.LEVEL_0_UNCOMMON, "level_0_uncommon_1",
+				"level_0_uncommon_2", "level_0_uncommon_3", "level_0_uncommon_4");
+		registry.addPiecesToPool(BRPiecePools.LEVEL_0_RARE, "level_0_rare_1", "level_0_chasm");
+	}
+
 	// When retrieving things from redux, use this static method
 	public static Identifier modLoc(String location) {
 		return new Identifier(ID, location);
+	}
+	/**If retrieving an identifier for something from minecraft, use this method
+	 * @param location a {@link String} that gives the identifier path
+	 * @return A {@link Identifier} within the minecraft namespace
+	 */
+	public static Identifier mcLoc(String location) {
+		return new Identifier("minecraft", location);
+	}
+
+	/**Used for debugging purposes */
+	public static boolean isDevelopmentEnv() {
+		return FabricLoader.getInstance().isDevelopmentEnvironment();
 	}
 }
