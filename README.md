@@ -1,6 +1,6 @@
 # Backrooms Redux
 [IMPORTANT] Due to an issue with Limlib Fabric, you won't see any new pieces on a level unless you create a new world or reset the data for that dimension (Unverified) altogether.
-[NOTE] All credits for any 3rd party code, assets and information used can be found at the bottom of the readme
+[NOTE] All credits for any 3rd party code, assets and information used can be found at the bottom of the readme, alongside anyone whose contributed to Backrooms Redux directly (Thanks for supporting me btw :>)
 
 ## Introduction
 > If you're not careful and you noclip out of reality in the wrong areas, you'll end up in the Backrooms, where it's nothing but the stink of old moist carpet,
