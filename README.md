@@ -47,7 +47,26 @@ TODO
 TODO
 
 ## Credits
+### Supporters
+To those who've supported my modding journey up to this point, 
+I thank you greatly for helping me enjoy doing stuff like this.
+
+### Project Redux
+The people who helped me develop this mod directly, thank you for contributing 
+and assisting in the development of this dream project of mine.
+Whether you were a texture or model designer who made assets or a programmer who helped with developing the internals of the mod,
+Thank you :)
+
+Texture Designers: TB (Made textures for some of the blocks in Level 1)
+
+### Dependencies
 Liminal Library by Ludocrypt.
 Liminal Library Fabric by V-Fast & Clomclem.
+Cardinal Components by the Ladysnake group.
+Geckolib by Gecko, Tslat, DerToaster, and any other creators not mentioned
+
+### Third-party assets
 Light hum sound originally provided by Zapsplat.
+
+### Backrooms stories
 Canon used is the Backrooms Wikidot.
