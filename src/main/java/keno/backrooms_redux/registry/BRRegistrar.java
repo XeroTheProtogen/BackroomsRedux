@@ -52,9 +52,12 @@ public class BRRegistrar implements LimlibRegistrar {
                             new Level0ChunkGenerator(
                                     new FixedBiomeSource(registry.get(RegistryKeys.BIOME).getOptional(BRBiomes.LEVEL_0).get()),
                                     NbtGroup.Builder.create(LEVEL_O_ID)
-                                            .with("level_0_common", singleton.getPieces(BRPiecePools.LEVEL_0_COMMON))
-                                            .with("level_0_uncommon", singleton.getPieces(BRPiecePools.LEVEL_0_UNCOMMON))
-                                            .with("level_0_rare", singleton.getPieces(BRPiecePools.LEVEL_0_RARE))
+                                            .with("level_0_common", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                                    .getPool(BRPiecePools.LEVEL_0_COMMON))
+                                            .with("level_0_uncommon", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                                    .getPool(BRPiecePools.LEVEL_0_UNCOMMON))
+                                            .with("level_0_rare", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                                    .getPool(BRPiecePools.LEVEL_0_RARE))
                                             .with("level_0_manilla_room")
                                             .build())));
 

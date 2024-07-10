@@ -1,26 +1,29 @@
 package keno.backrooms_redux.worldgen.piece_pools;
 
 import net.minecraft.util.Identifier;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PoolArraysSingleton {
     private static PoolArraysSingleton INSTANCE;
-    private Map<Identifier, String[]> POOLS = new HashMap<>();
+    private Map<Identifier, PieceManager> pieceManagers = new HashMap<>();
     private PoolArraysSingleton() {}
 
-    public void addPiecesToPool(Identifier poolId, String... pieces) {
-        if (this.POOLS.get(poolId) == null) {
-            this.POOLS.put(poolId, pieces);
+    public void addManagerToPool(Identifier poolId, PieceManager manager) {
+        if (this.getManager(poolId) != null) {
+            PieceManager updatedPieceManager = getManager(poolId);
+            for (Identifier id : manager.pools.keySet()) {
+                updatedPieceManager.registerPiecesToPool(id, manager.getPool(id));
+            }
+            this.pieceManagers.put(poolId, updatedPieceManager);
         } else {
-            this.POOLS.put(poolId, ArrayUtils.addAll(this.POOLS.get(poolId), pieces));
+            this.pieceManagers.put(poolId, manager);
         }
     }
 
-    public String[] getPieces(Identifier poolId) {
-        return this.POOLS.get(poolId);
+    public PieceManager getManager(Identifier poolId) {
+        return this.pieceManagers.get(poolId);
     }
 
     public static synchronized PoolArraysSingleton getInstance() {

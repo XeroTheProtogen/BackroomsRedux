@@ -9,6 +9,7 @@ import keno.backrooms_redux.registry.BRSoundEvents;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import keno.backrooms_redux.worldgen.chunk.BRChunkGenerators;
 import keno.backrooms_redux.worldgen.piece_pools.BRPiecePools;
+import keno.backrooms_redux.worldgen.piece_pools.PieceManager;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -42,11 +43,16 @@ public class BackroomsRedux implements ModInitializer {
 	}
 
 	private void registerPieces(PoolArraysSingleton registry) {
-		registry.addPiecesToPool(BRPiecePools.LEVEL_0_COMMON, "level_0_common_1",
-				"level_0_common_2", "level_0_common_3", "level_0_common_4");
-		registry.addPiecesToPool(BRPiecePools.LEVEL_0_UNCOMMON, "level_0_uncommon_1",
-				"level_0_uncommon_2", "level_0_uncommon_3", "level_0_uncommon_4");
-		registry.addPiecesToPool(BRPiecePools.LEVEL_0_RARE, "level_0_rare_1", "level_0_chasm");
+		PieceManager level0Manager = new PieceManager();
+		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_COMMON,
+				"level_0_common_1", "level_0_common_2",
+				"level_0_common_3", "level_0_common_4");
+		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_UNCOMMON,
+				"level_0_uncommon_1", "level_0_uncommon_2",
+				"level_0_uncommon_3", "level_0_uncommon_4");
+		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_RARE,
+				"level_0_tent", "level_0_chasm");
+		registry.addManagerToPool(BRPiecePools.LEVEL_0_MANAGER, level0Manager);
 	}
 
 	// When retrieving things from redux, use this static method
