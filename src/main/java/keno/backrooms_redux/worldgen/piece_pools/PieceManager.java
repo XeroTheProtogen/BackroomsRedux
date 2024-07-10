@@ -7,6 +7,7 @@ import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkRegion;
 import org.apache.commons.lang3.ArrayUtils;
+import net.minecraft.util.math.random.Random;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 public class PieceManager {
     protected Map<Identifier, String[]> pools = new HashMap<>();
-    protected Map<Identifier, PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>>> processors = new HashMap<>();
+    protected Map<Identifier, PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> processors = new HashMap<>();
 
     public void registerPiecesToPool(Identifier poolId, String... pieces) {
         if (this.pools.get(poolId) == null) {
@@ -26,7 +27,8 @@ public class PieceManager {
     }
 
     public void registerPieceProcessor(Identifier processorId,
-                                       PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>> processor) {
+                                       PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>,
+                                       Random> processor) {
         if (this.processors.get(processorId) != null) {
             throw new KeyAlreadyExistsException("There is already a processor here at " + processorId.toString());
         } else {
@@ -41,7 +43,7 @@ public class PieceManager {
         return this.pools.get(poolId);
     }
 
-    public PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>> getProcessor(Identifier processorId) {
+    public PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> getProcessor(Identifier processorId) {
         if (pools.get(processorId) == null) {
             throw new InvalidIdentifierException("This processor does not exist at the id: " + processorId.toString());
         }
@@ -50,8 +52,8 @@ public class PieceManager {
 
     @FunctionalInterface
     public interface PieceProcessor<R extends ChunkRegion, P extends BlockPos,
-            B extends BlockState, N extends Optional<NbtCompound>> {
+            B extends BlockState, N extends Optional<NbtCompound>, D extends Random> {
         void applyProcessor(R chunkRegion, P blockPos,
-                            B blockState, N optionalNbtCompound);
+                            B blockState, N optionalNbtCompound, D random);
     }
 }
