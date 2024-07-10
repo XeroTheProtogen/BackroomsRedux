@@ -27,8 +27,7 @@ public class PieceManager {
     }
 
     public void registerPieceProcessor(Identifier processorId,
-                                       PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>,
-                                       Random> processor) {
+                                       PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> processor) {
         if (this.processors.get(processorId) != null) {
             throw new KeyAlreadyExistsException("There is already a processor here at " + processorId.toString());
         } else {
