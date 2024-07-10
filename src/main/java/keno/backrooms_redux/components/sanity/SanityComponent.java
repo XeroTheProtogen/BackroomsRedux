@@ -39,7 +39,6 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
     @Override
     public void setValue(float value) {
         this.sanity = value;
-        BRComponentRegistry.SANITY.sync(player);
     }
 
     @Override
