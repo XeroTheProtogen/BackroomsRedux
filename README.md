@@ -44,7 +44,26 @@ Backrooms Redux intends to add levels 0-11, with levels being released in waves 
 TODO
 
 ## Addon Support
-TODO
+Backrooms Redux is designed with addon support in mind, and as such, we've provided the following 
+tools to allow for the safe modification of levels in this mod and any addons making use
+of this system.
+
+### PieceArraySingleton
+A singleton object used to register and retrieve PieceManagers. It grants addon makers
+the ability to register new pieces to a level's piece pool, and the option to allow
+addon support for the addon's piece pools during mod initialization.
+**More Documentation Coming Soon**
+
+### PieceManager
+The objects stored in PieceArraySingleton, its job is to store 
+and retrieve data relating to piece names and piece pool processors.
+**More Documentation Coming Soon**
+
+### PieceProcessor
+A functional lambda that can be used in chunk generators
+to add procedural block modifications, it can be implemented into a chunk generator
+if addon support is desired for the level. 
+**More Documentation Coming Soon**
 
 ## Credits
 ### Supporters
