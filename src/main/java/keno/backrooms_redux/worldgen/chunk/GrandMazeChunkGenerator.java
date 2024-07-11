@@ -31,6 +31,9 @@ import java.util.concurrent.Executor;
 import java.util.function.Function;
 import java.util.random.RandomGenerator;
 
+/** Since grand mazes appear to end up sharing a degree of logic,
+    this class was made to minimize boiler plate.
+    (Derived from the chunk generators in LudoCrypt's The Corners)*/
 public class GrandMazeChunkGenerator extends AbstractNbtChunkGenerator {
     public static final Codec<GrandMazeChunkGenerator> CODEC =
             RecordCodecBuilder.create((instance) ->
