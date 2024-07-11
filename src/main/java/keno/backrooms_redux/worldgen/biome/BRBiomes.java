@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 
 public class BRBiomes {
+    /** Used for things like insanity */
     public static final TagKey<Biome> BACKROOMS_BIOMES = TagKey.of(RegistryKeys.BIOME,
             BackroomsRedux.modLoc("backrooms_biomes"));
     public static final RegistryKey<Biome> LEVEL_0 = get(BRRegistrar.LEVEL_O_ID);
