@@ -60,7 +60,7 @@ and retrieve data relating to piece names and piece pool processors.
 **More Documentation Coming Soon**
 
 ### PieceProcessor
-A functional lambda that can be used in chunk generators
+A functional interface that can be used in chunk generators
 to add procedural block modifications, it can be implemented into a chunk generator
 if addon support is desired for the level. 
 **More Documentation Coming Soon**
