@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.HashMap;
 
+/**author LudoCrypt (The Corners) */
 public class GrandMazeGenerator extends MazeGenerator<MazeComponent> {
     public final HashMap<BlockPos, MazeComponent> grandMazeMap = new HashMap<>(30);
     public final int dilation;
