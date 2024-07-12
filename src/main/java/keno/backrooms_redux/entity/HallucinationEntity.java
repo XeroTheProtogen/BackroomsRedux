@@ -1,5 +1,7 @@
 package keno.backrooms_redux.entity;
 
+import keno.backrooms_redux.components.BRComponentRegistry;
+import keno.backrooms_redux.components.sanity.SanityComponent;
 import keno.backrooms_redux.utils.TickHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -9,9 +11,12 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -73,6 +78,17 @@ public class HallucinationEntity extends PassiveEntity implements GeoEntity, Tic
     @Override
     public boolean shouldRenderName() {
         return true;
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        if (!this.getWorld().isClient())
+            if (this.getWorld().getClosestPlayer(this, 8d) instanceof ServerPlayerEntity player) {
+                SanityComponent sanity = BRComponentRegistry.SANITY.get(player);
+                sanity.setValue(sanity.getValue() - 5f);
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 200));
+            }
+        super.onDeath(damageSource);
     }
 
     @Nullable
