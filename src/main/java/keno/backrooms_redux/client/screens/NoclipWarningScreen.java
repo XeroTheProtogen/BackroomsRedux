@@ -18,9 +18,9 @@ public class NoclipWarningScreen extends Screen {
     public static final String AGREE_KEY = "backrooms_redux.gui.agreement";
     public static final String OMEN_KEY = "backrooms_redux.gui.omen";
     public static final String WARNING_KEY = "backrooms_redux.gui.warning";
-    private static MutableText AGREE = Text.translatable(AGREE_KEY);
-    private static MutableText OMEN = Text.translatable(OMEN_KEY);
-    private static MutableText WARNING = Text.translatable(WARNING_KEY);
+    private static final MutableText AGREE = Text.translatable(AGREE_KEY);
+    private static final MutableText OMEN = Text.translatable(OMEN_KEY);
+    private static final MutableText WARNING = Text.translatable(WARNING_KEY);
 
     public NoclipWarningScreen(Text title) {
         super(title);

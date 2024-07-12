@@ -4,6 +4,8 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 import keno.backrooms_redux.components.BRComponentRegistry;
 import keno.backrooms_redux.components.base.FloatComponent;
+import keno.backrooms_redux.entity.BREntities;
+import keno.backrooms_redux.entity.HallucinationEntity;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.minecraft.client.MinecraftClient;
@@ -12,6 +14,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -21,10 +24,9 @@ import net.minecraft.util.math.random.Xoroshiro128PlusPlusRandom;
 
 public class SanityComponent implements FloatComponent, CommonTickingComponent, AutoSyncedComponent {
     private float sanity = 100f;
-    private final PlayerEntity player;
-    private int ticks = 0;
-    private boolean sanity_trickling = false;
-    Random random;
+    private PlayerEntity player;
+
+    private final Random random;
 
     public SanityComponent(PlayerEntity player) {
         this.player = player;
@@ -33,7 +35,7 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
 
     @Override
     public float getValue() {
-        return sanity;
+        return this.sanity;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        tag.getFloat("backrooms_redux.sanity");
+        this.sanity = tag.getFloat("backrooms_redux.sanity");
     }
 
     @Override
@@ -55,14 +57,13 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
     public void tick() {
         if (!this.player.getWorld().isClient()) {
             if (this.player instanceof ServerPlayerEntity serverPlayer) {
-                if (serverPlayer.getWorld().getBiome(serverPlayer.getBlockPos()).isIn(BRBiomes.BACKROOMS_BIOMES)) {
-                    if (this.sanity <= 80f && --this.ticks <= 0) {
-                        this.ticks = random.nextBetween(60, 240);
+                if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
+                    if (serverPlayer.getWorld().getBiome(serverPlayer.getBlockPos()).isIn(BRBiomes.BACKROOMS_BIOMES)) {
+                        if (this.sanity > 0f) {
+                            this.sanity -= 0.000028f;
+                        }
+                        BRComponentRegistry.SANITY.sync(player);
                     }
-                    if (this.sanity > 0f) {
-                        this.sanity -= 0.000028f;
-                    }
-                    BRComponentRegistry.SANITY.sync(player);
                 }
             }
         }
@@ -71,9 +72,18 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
     @Override
     public void serverTick() {
         CommonTickingComponent.super.serverTick();
-        if (this.sanity <= 0) {
-            if (!this.player.getWorld().isClient()) {
-                if (this.player instanceof ServerPlayerEntity serverPlayer) serverPlayer.kill();
+        if (!this.player.getWorld().isClient()) {
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                if (getValue() == 50.0f || getValue() == 30.0f || getValue() == 10.0f) {
+                    ServerWorld world = serverPlayer.getServerWorld();
+                    HallucinationEntity hallucination = BREntities.HALLUCINATION.create(world);
+                    world.spawnEntity(hallucination);
+                    BlockPos pos = serverPlayer.getBlockPos().add(random.nextBetween(-10, 10),
+                            0, random.nextBetween(-10, 10));
+                    hallucination.setPos(pos.getX(), pos.getY(), pos.getZ());
+                } else if (getValue() <= 0f) {
+                    serverPlayer.kill();
+                }
             }
         }
     }
@@ -84,18 +94,26 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
         if (this.player.getWorld().isClient()) {
             MinecraftClient client = MinecraftClient.getInstance();
             ClientPlayerEntity player = client.player;
+            ClientWorld world = client.world;
             assert player != null;
-                if (this.sanity <= 90f && !this.sanity_trickling) {
-                    player.sendMessage(Text.translatable("backrooms_redux.sanity.beginning"), true);
-                    this.sanity_trickling = true;
-                    BRComponentRegistry.SANITY.sync(player);
+            if (this.sanity == 90.0f) {
+                player.sendMessage(Text.translatable("backrooms_redux.sanity.beginning"), true);
+            }
+
+            if (this.sanity == 50.0f) {
+                player.sendMessage(Text.of("As you lose hope, you begin to hallucinate..."), true);
+            }
+
+            if (this.sanity == 1.0f) {
+                player.sendMessage(Text.of("The Wretch Cycle shall claim another..."), true);
+            }
+
+            if (this.sanity <= 5f) {
+                if (this.random.nextFloat() <= 0.05f) {
+                    world.playSoundAtBlockCenter(player.getBlockPos(), SoundEvents.BLOCK_STONE_BREAK,
+                            SoundCategory.NEUTRAL, 1f, 0.8f, false);
                 }
-                if (this.sanity <= 75f) {
-                    ClientWorld world = player.clientWorld;
-                    BlockPos pos = player.getBlockPos().add(this.random.nextBetween(-5, 5),
-                            this.random.nextBetween(-5, 5),
-                            this.random.nextBetween(-5, 5));
-                    world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_STONE_BREAK, SoundCategory.NEUTRAL, 1f, 0.8f, true);}
+            }
         }
     }
 }
