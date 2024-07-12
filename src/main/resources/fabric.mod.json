@@ -20,7 +20,8 @@
 	"environment": "*",
 	"custom": {
 		"cardinal-components": [
-			"backrooms_redux:sanity"
+			"backrooms_redux:sanity",
+			"backrooms_redux:entered_backrooms"
 		]
 	},
 	"entrypoints": {

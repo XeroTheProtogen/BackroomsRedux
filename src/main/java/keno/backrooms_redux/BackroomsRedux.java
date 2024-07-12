@@ -1,6 +1,8 @@
 package keno.backrooms_redux;
 
 import keno.backrooms_redux.commands.BRCommands;
+import keno.backrooms_redux.entity.BREntities;
+import keno.backrooms_redux.entity.HallucinationEntity;
 import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.networking.BRPackets;
 import keno.backrooms_redux.networking.TeleportPlayer;
@@ -8,11 +10,13 @@ import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRSoundEvents;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import keno.backrooms_redux.worldgen.chunk.BRChunkGenerators;
-import keno.backrooms_redux.worldgen.piece_pools.BRPiecePools;
 import keno.backrooms_redux.worldgen.piece_pools.PieceManager;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
+import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
+import keno.backrooms_redux.worldgen.piece_pools.constants.BRPiecePools;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -35,14 +39,20 @@ public class BackroomsRedux implements ModInitializer {
 		BRChunkGenerators.init();
 		BRBiomes.registerBiomes();
 		BRSoundEvents.init();
-		registerPieces(PoolArraysSingleton.getInstance());
+		registerPieceManagers(PoolArraysSingleton.getInstance());
 		BRCommands.init();
+		BREntities.init();
+		registerEntityAttributes();
 		ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS,
 				((server, player, handler, buf, responseSender) ->
 						server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player))));
 	}
 
-	private void registerPieces(PoolArraysSingleton registry) {
+	private void registerEntityAttributes() {
+		FabricDefaultAttributeRegistry.register(BREntities.HALLUCINATION, HallucinationEntity.setAttributes());
+	}
+
+	private void registerPieceManagers(PoolArraysSingleton registry) {
 		PieceManager level0Manager = new PieceManager();
 		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_COMMON,
 				"level_0_common_1", "level_0_common_2",
@@ -52,8 +62,10 @@ public class BackroomsRedux implements ModInitializer {
 				"level_0_uncommon_3", "level_0_uncommon_4");
 		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_RARE,
 				"level_0_tent", "level_0_chasm");
-		registry.addManagerToPool(BRPiecePools.LEVEL_0_MANAGER, level0Manager);
+
+		registry.addManagerToPool(BRPieceManagers.LEVEL_0_MANAGER, level0Manager);
 	}
+
 
 	// When retrieving things from redux, use this static method
 	public static Identifier modLoc(String location) {

@@ -23,11 +23,6 @@ public class TeleportPlayer {
         ServerWorld backrooms = server.getWorld(BRRegistrar.LEVEL_0_WORLD);
         TeleportTarget target = new TeleportTarget(backroomsPos, player.getVelocity(), player.getYaw(), player.getPitch());
         LimlibTravelling.travelTo(player, backrooms, target, SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, 0.8f, 0.9f);
-        if (server.getGameRules().getBoolean(BRCommonRegistry.RESPAWN_IN_BACKROOMS)) {
-            BlockPos newSpawn = new BlockPos(Math.round((float) backroomsPos.getX()),
-                    Math.round((float) backroomsPos.getY()), Math.round((float) backroomsPos.getZ()));
-            player.setSpawnPoint(BRRegistrar.LEVEL_0_WORLD, newSpawn, player.getSpawnAngle(), true, false);
-        }
         if (server.getGameRules().getBoolean(BRCommonRegistry.CLEAR_INVENTORY_ON_BACKROOMS_ENTRY)) {
             player.getInventory().clear();
             player.getEnderChestInventory().clear();

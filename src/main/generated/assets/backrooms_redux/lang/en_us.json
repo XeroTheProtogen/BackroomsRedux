@@ -15,5 +15,6 @@
   "block.backrooms_redux.tile_light": "Tile Light",
   "gamerule.clear_inventory_backroom_entry": "clearInvOnBackroomsEntry",
   "gamerule.spawn_in_backrooms": "respawnInBackrooms",
+  "item.backrooms_redux.hallucination_spawn_egg": "Hallucination Spawn Egg",
   "itemGroup.level_0": "Level 0"
 }

@@ -9,8 +9,8 @@ import java.util.random.RandomGenerator;
 
 /** @author Ludocrypt (The Corners) */
 public class StraightDepthFirstMaze extends DepthLikeMaze {
-    public RandomGenerator generator;
-    public double bias;
+    public final RandomGenerator generator;
+    public final double bias;
 
     public StraightDepthFirstMaze(int width, int height, RandomGenerator generator, double bias) {
         super(width, height);

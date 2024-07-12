@@ -5,8 +5,9 @@ import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import keno.backrooms_redux.worldgen.biome.Level0Biome;
 import keno.backrooms_redux.worldgen.chunk.Level0ChunkGenerator;
-import keno.backrooms_redux.worldgen.piece_pools.BRPiecePools;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
+import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
+import keno.backrooms_redux.worldgen.piece_pools.constants.BRPiecePools;
 import net.ludocrypt.limlib.api.LimlibRegistrar;
 import net.ludocrypt.limlib.api.LimlibRegistryHooks;
 import net.ludocrypt.limlib.api.LimlibWorld;
@@ -38,7 +39,6 @@ public class BRRegistrar implements LimlibRegistrar {
     public static final Identifier LEVEL_O_ID = BackroomsRedux.modLoc("level_0");
     private static final PoolArraysSingleton singleton = PoolArraysSingleton.getInstance();
 
-
     public static final LimlibWorld LEVEL_0 = new LimlibWorld(() -> new DimensionType(OptionalLong.of(13000),
             false, false, false, false, 8.0d,
             true, true, -64, 80, 0, BlockTags.INFINIBURN_OVERWORLD,
@@ -52,11 +52,11 @@ public class BRRegistrar implements LimlibRegistrar {
                             new Level0ChunkGenerator(
                                     new FixedBiomeSource(registry.get(RegistryKeys.BIOME).getOptional(BRBiomes.LEVEL_0).get()),
                                     NbtGroup.Builder.create(LEVEL_O_ID)
-                                            .with("level_0_common", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                            .with("level_0_common", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
                                                     .getPool(BRPiecePools.LEVEL_0_COMMON))
-                                            .with("level_0_uncommon", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                            .with("level_0_uncommon", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
                                                     .getPool(BRPiecePools.LEVEL_0_UNCOMMON))
-                                            .with("level_0_rare", singleton.getManager(BRPiecePools.LEVEL_0_MANAGER)
+                                            .with("level_0_rare", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
                                                     .getPool(BRPiecePools.LEVEL_0_RARE))
                                             .with("level_0_manilla_room")
                                             .build())));

@@ -50,6 +50,7 @@ public class BRLangGen extends FabricLanguageProvider {
     private void miscText(TranslationBuilder builder) {
         builder.add(BRCommonRegistry.GLITCHED_PLANK.getTranslationKey(), "Glitched Planks");
         builder.add(BRCommonRegistry.GLITCHED_STONE.getTranslationKey(), "Glitched Stone");
+        builder.add(BRCommonRegistry.HALLUCINATION_SPAWN_EGG.getTranslationKey(), "Hallucination Spawn Egg");
         builder.add("backrooms_redux.sanity.beginning", "Grasping the situation, you become nervous...");
     }
 }

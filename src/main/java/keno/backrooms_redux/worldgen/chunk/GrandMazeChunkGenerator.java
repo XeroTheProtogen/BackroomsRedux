@@ -49,7 +49,7 @@ public class GrandMazeChunkGenerator extends AbstractNbtChunkGenerator {
     private final int mazeHeight;
     private final int mazeDilation;
     private final long mazeSeedModifier;
-    private GrandMazeGenerator mazeGenerator;
+    private final GrandMazeGenerator mazeGenerator;
 
     public GrandMazeChunkGenerator(BiomeSource biomeSource, NbtGroup nbtGroup, int mazeWidth, int mazeHeight,
                                    int mazeDilation, long mazeSeedModifier) {

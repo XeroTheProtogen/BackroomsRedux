@@ -5,9 +5,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ChunkRegion;
 import org.apache.commons.lang3.ArrayUtils;
-import net.minecraft.util.math.random.Random;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.HashMap;
@@ -16,7 +16,8 @@ import java.util.Optional;
 
 public class PieceManager {
     protected Map<Identifier, String[]> pools = new HashMap<>();
-    protected Map<Identifier, PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> processors = new HashMap<>();
+    protected Map<Identifier, PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>,
+            Random>> processors = new HashMap<>();
 
     public void registerPiecesToPool(Identifier poolId, String... pieces) {
         if (this.pools.get(poolId) == null) {

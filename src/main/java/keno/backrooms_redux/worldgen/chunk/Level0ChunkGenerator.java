@@ -47,10 +47,6 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
                             -> chunkGenerator.nbtGroup)).apply(instance, instance.stable(Level0ChunkGenerator::new)));
     private double woolType;
 
-    /* public Level0ChunkGenerator(BiomeSource biomeSource) {
-        this(biomeSource, createNbt());
-    } */
-
     public Level0ChunkGenerator(BiomeSource biomeSource, NbtGroup nbtGroup) {
         super(biomeSource, nbtGroup);
     }

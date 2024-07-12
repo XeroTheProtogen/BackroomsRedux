@@ -3,6 +3,7 @@ package keno.backrooms_redux.registry;
 import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.block.LampBlock;
 import keno.backrooms_redux.block.OverworldGlitchingBlock;
+import keno.backrooms_redux.entity.BREntities;
 import keno.backrooms_redux.item.AlmondWaterItem;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
@@ -12,10 +13,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.GameRules;
@@ -46,6 +44,9 @@ public class BRCommonRegistry {
     //Items
     public static final Item ALMOND_WATER = registerItem("almond_water", new AlmondWaterItem(new FabricItemSettings()
             .maxCount(8).food(new FoodComponent.Builder().hunger(6).saturationModifier(4).alwaysEdible().build())));
+    public static final Item HALLUCINATION_SPAWN_EGG = registerItem("hallucination_spawn_egg",
+            new SpawnEggItem(BREntities.HALLUCINATION, 0xff0eaeae,
+                    0xff6b6b6b, new FabricItemSettings().maxCount(16)));
 
     //Game rules
     /**When on, this gamerule forces the player's spawn to be in the backrooms on first entry*/
@@ -82,5 +83,7 @@ public class BRCommonRegistry {
                 add(entries, BRCommonRegistry.GLITCHED_PLANK, BRCommonRegistry.GLITCHED_STONE));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries ->
                 add(entries, BRCommonRegistry.ALMOND_WATER));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries ->
+                add(entries, BRCommonRegistry.HALLUCINATION_SPAWN_EGG));
     }
 }

@@ -6,5 +6,10 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  },
+  "server": [
+    "server.PlayerManagerAccessor",
+    "server.PlayerManagerMixin",
+    "server.ServerPlayerEntityMixin"
+  ]
 }
