@@ -27,7 +27,7 @@ public class HallucinationEntity extends PassiveEntity implements GeoEntity, Tic
     protected static final RawAnimation WALK_ANIM =
             RawAnimation.begin().thenLoop("animation.hallucination.walk");
     protected static final RawAnimation PHASE_ANIM =
-            RawAnimation.begin().then("animation.hallucination.phase", Animation.LoopType.PLAY_ONCE);
+            RawAnimation.begin().thenPlayAndHold("animation.hallucination.phase");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int ticks = 1200;
@@ -38,7 +38,7 @@ public class HallucinationEntity extends PassiveEntity implements GeoEntity, Tic
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return PassiveEntity.createLivingAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.8f)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10f)
                 .add(EntityAttributes.GENERIC_ARMOR, 0.3f)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16f);
@@ -60,13 +60,19 @@ public class HallucinationEntity extends PassiveEntity implements GeoEntity, Tic
         if (--this.ticks <= 1) {
             this.kill();
         }
+        super.tick();
     }
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 8, 1f));
+        this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         this.goalSelector.add(3, new LookAroundGoal(this));
-        this.goalSelector.add(2, new WanderAroundGoal(this, 0.5f, 1));
+        this.goalSelector.add(2, new WanderAroundGoal(this, 1f, 4));
+    }
+
+    @Override
+    public boolean shouldRenderName() {
+        return true;
     }
 
     @Nullable
@@ -81,15 +87,16 @@ public class HallucinationEntity extends PassiveEntity implements GeoEntity, Tic
     }
 
     protected <H extends HallucinationEntity> PlayState getMainController(final AnimationState<H> state) {
-        state.getController().setOverrideEasingType(EasingType.EASE_IN_BOUNCE);
-        if (getTimer() <= 60) {
-            state.setControllerSpeed(1.5f);
-            state.setAnimation(HallucinationEntity.PHASE_ANIM);
+        state.getController().setOverrideEasingType(EasingType.EASE_IN_CIRC);
+        if (state.getAnimatable().isDead()) {
             return PlayState.STOP;
-        }
-        else if (state.isMoving()) {
+        } else if (state.getAnimatable().getTimer() <= 60) {
+            state.setAnimation(HallucinationEntity.PHASE_ANIM);
+            return PlayState.CONTINUE;
+        } else if (state.isMoving()) {
             return state.setAndContinue(HallucinationEntity.WALK_ANIM);
         }
+
         return state.setAndContinue(HallucinationEntity.IDLE_ANIM);
     }
 

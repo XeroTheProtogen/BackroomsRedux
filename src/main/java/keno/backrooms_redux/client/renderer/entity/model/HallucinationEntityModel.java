@@ -33,8 +33,8 @@ public class HallucinationEntityModel extends GeoModel<HallucinationEntity> {
         if (head != null) {
             EntityModelData data = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-            head.setRotX(data.headPitch() * MathHelper.DEGREES_PER_RADIAN);
-            head.setRotY(data.netHeadYaw() * MathHelper.DEGREES_PER_RADIAN);
+            head.setRotX(data.headPitch() * MathHelper.RADIANS_PER_DEGREE);
+            head.setRotY(data.netHeadYaw() * MathHelper.RADIANS_PER_DEGREE);
         }
     }
 
