@@ -2,6 +2,7 @@ package keno.backrooms_redux.components.sanity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.components.BRComponentRegistry;
 import keno.backrooms_redux.components.base.FloatComponent;
 import keno.backrooms_redux.entity.BREntities;
@@ -23,7 +24,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.math.random.Xoroshiro128PlusPlusRandom;
 
 public class SanityComponent implements FloatComponent, CommonTickingComponent, AutoSyncedComponent {
-    private float sanity = 100f;
+    private float sanity = 100.0f;
     private PlayerEntity player;
 
     private final Random random;
@@ -55,18 +56,15 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
 
     @Override
     public void tick() {
-        if (!this.player.getWorld().isClient()) {
-            if (this.player instanceof ServerPlayerEntity serverPlayer) {
-                if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
-                    if (serverPlayer.getWorld().getBiome(serverPlayer.getBlockPos()).isIn(BRBiomes.BACKROOMS_BIOMES)) {
-                        if (this.sanity > 0f) {
-                            this.sanity -= 0.000028f;
-                        }
-                        BRComponentRegistry.SANITY.sync(player);
-                    }
+        if (!player.isCreative() && !player.isSpectator()) {
+            if (player.getWorld().getBiome(player.getBlockPos()).isIn(BRBiomes.BACKROOMS_BIOMES)) {
+                if (this.sanity > 0f) {
+                    setValue(getValue() - 0.000028f);
                 }
+                BRComponentRegistry.SANITY.sync(player);
             }
         }
+        BackroomsRedux.LOGGER.info("Sanity: {}", getValue());
     }
 
     @Override
@@ -74,15 +72,17 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
         CommonTickingComponent.super.serverTick();
         if (!this.player.getWorld().isClient()) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
-                if (getValue() == 50.0f || getValue() == 30.0f || getValue() == 10.0f) {
-                    ServerWorld world = serverPlayer.getServerWorld();
-                    HallucinationEntity hallucination = BREntities.HALLUCINATION.create(world);
-                    world.spawnEntity(hallucination);
-                    BlockPos pos = serverPlayer.getBlockPos().add(random.nextBetween(-10, 10),
-                            0, random.nextBetween(-10, 10));
-                    hallucination.setPos(pos.getX(), pos.getY(), pos.getZ());
-                } else if (getValue() <= 0f) {
-                    serverPlayer.kill();
+                if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
+                    if (getValue() == 50 || getValue() == 30 || getValue() == 10) {
+                        ServerWorld world = serverPlayer.getServerWorld();
+                        HallucinationEntity hallucination = BREntities.HALLUCINATION.create(world);
+                        world.spawnEntity(hallucination);
+                        BlockPos pos = serverPlayer.getBlockPos().add(random.nextBetween(-10, 10),
+                                0, random.nextBetween(-10, 10));
+                        hallucination.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
+                    } else if (getValue() <= 0f) {
+                        serverPlayer.kill();
+                    }
                 }
             }
         }

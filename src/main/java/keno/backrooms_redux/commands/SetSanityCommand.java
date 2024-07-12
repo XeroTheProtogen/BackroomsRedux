@@ -16,7 +16,7 @@ public class SetSanityCommand {
         if (source.getEntity() instanceof ServerPlayerEntity player) {
             if (BRComponentRegistry.SANITY.isProvidedBy(player)) {
                 SanityComponent component = BRComponentRegistry.SANITY.get(player);
-                component.setValue(sanity);
+                component.setValue(sanity + 0.000028f);
                 BRComponentRegistry.SANITY.sync(player);
             }
         }
@@ -28,7 +28,7 @@ public class SetSanityCommand {
         ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "target");
         if (BRComponentRegistry.SANITY.isProvidedBy(player)) {
             SanityComponent component = BRComponentRegistry.SANITY.get(player);
-            component.setValue(sanity);
+            component.setValue(sanity + 0.000028f);
             BRComponentRegistry.SANITY.sync(player);
         }
         return 1;
