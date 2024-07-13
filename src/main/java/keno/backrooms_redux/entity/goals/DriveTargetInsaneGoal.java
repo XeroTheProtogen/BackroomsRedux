@@ -19,7 +19,7 @@ public class DriveTargetInsaneGoal extends Goal {
         this.insanityDrained = insanityDrained;
         this.range = range;
         this.cooldown = cooldownTicks;
-        this.setControls(EnumSet.of(Control.LOOK));
+        this.setControls(EnumSet.of(Control.LOOK, Control.TARGET));
     }
 
     @Override
