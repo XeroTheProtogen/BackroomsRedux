@@ -5,7 +5,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Model;
 import net.minecraft.data.client.Models;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class BRModelGen extends FabricModelProvider {
     public BRModelGen(FabricDataOutput output) {
@@ -41,8 +46,15 @@ public class BRModelGen extends FabricModelProvider {
         generator.registerSimpleCubeAll(BRCommonRegistry.ROOF_TILE);
     }
 
+    private void registerSpawnEggModels(ItemModelGenerator generator, Item... items) {
+        for (Item item : items) {
+            generator.register(item, new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
+        }
+    }
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(BRCommonRegistry.ALMOND_WATER, Models.GENERATED);
+        registerSpawnEggModels(itemModelGenerator, BRCommonRegistry.HALLUCINATION_SPAWN_EGG);
     }
 }

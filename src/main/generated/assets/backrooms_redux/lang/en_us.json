@@ -13,8 +13,10 @@
   "block.backrooms_redux.soggy_carpet": "Soggy Carpet",
   "block.backrooms_redux.soggy_carpet_stairs": "Soggy Carpet Stairs",
   "block.backrooms_redux.tile_light": "Tile Light",
+  "entity.backrooms_redux.hallucination": "H4lluc1n4ti0n",
   "gamerule.clear_inventory_backroom_entry": "clearInvOnBackroomsEntry",
   "gamerule.spawn_in_backrooms": "respawnInBackrooms",
+  "item.backrooms_redux.almond_water": "Almond Water",
   "item.backrooms_redux.hallucination_spawn_egg": "Hallucination Spawn Egg",
   "itemGroup.level_0": "Level 0"
 }

@@ -1,6 +1,7 @@
-// 1.20.4	2024-07-11T19:09:42.2824893	Backrooms: Redux/Model Definitions
+// 1.20.4	2024-07-13T15:41:58.2042888	Backrooms: Redux/Model Definitions
 2bae6966550159f453f03d72d6ef1dd14b6ac029 assets\backrooms_redux\blockstates\soggy_carpet.json
 ef0d269de33ad554f669debc25a6e9d074e4587b assets\backrooms_redux\models\block\glitched_planks.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\backrooms_redux\models\item\hallucination_spawn_egg.json
 f611d7196677645787a5a2b09a9675794219cdf1 assets\backrooms_redux\blockstates\glitched_planks.json
 c3092dd5c811f2304bb09a2ef6c3b5a4e34292b4 assets\backrooms_redux\models\block\monoyellow_wallpaper.json
 35c04020d015b151394c1ff7d93e2c3b9cf65a3b assets\backrooms_redux\models\item\glitched_planks.json
@@ -24,7 +25,7 @@ dca067b8697223daf807b3586ce41911bcf1d391 assets\backrooms_redux\models\item\mois
 2c601ea3ded1ea0fdda553430c5005c34a9d2a3c assets\backrooms_redux\blockstates\soggy_carpet_stairs.json
 566eaa0d5b9b93fe87a03cc30afe5429fa050423 assets\backrooms_redux\models\item\moist_carpet_stairs.json
 6a965b004efaad2c0f3674a7113cd1a376073dc3 assets\backrooms_redux\models\item\soggy_carpet_stairs.json
-90f069dc57e940da514f7c057175a5ea4389bacb assets\backrooms_redux\blockstates\moist_carpet_stairs.json
 81593767143658a4f273fe7fb1aef4a03fdb7500 assets\backrooms_redux\blockstates\roof_tile.json
+90f069dc57e940da514f7c057175a5ea4389bacb assets\backrooms_redux\blockstates\moist_carpet_stairs.json
 65363e696be02573daa6e95fa52efe79584db6e2 assets\backrooms_redux\models\block\moist_carpet_stairs_inner.json
 e460259fed5b729d2a1e3388b9d43d385d796cfd assets\backrooms_redux\models\block\soggy_carpet_stairs_outer.json

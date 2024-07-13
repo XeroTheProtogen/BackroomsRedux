@@ -26,7 +26,7 @@ import net.minecraft.util.math.random.Xoroshiro128PlusPlusRandom;
 
 public class SanityComponent implements FloatComponent, CommonTickingComponent, AutoSyncedComponent {
     private float sanity = 100.0f;
-    private PlayerEntity player;
+    private final PlayerEntity player;
 
     private final Random random;
 
@@ -42,7 +42,6 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
 
     @Override
     public void setValue(float value) {
-
         this.sanity = MathHelper.clamp(value, 0f, 100f);
     }
 

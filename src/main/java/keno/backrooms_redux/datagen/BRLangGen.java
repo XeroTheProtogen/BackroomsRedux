@@ -1,6 +1,7 @@
 package keno.backrooms_redux.datagen;
 
 import keno.backrooms_redux.client.screens.NoclipWarningScreen;
+import keno.backrooms_redux.entity.BREntities;
 import keno.backrooms_redux.item.BRItemGroup;
 import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRRegistrar;
@@ -18,6 +19,8 @@ public class BRLangGen extends FabricLanguageProvider {
         guiText(translationBuilder);
         gameRuleText(translationBuilder);
         miscText(translationBuilder);
+        entityText(translationBuilder);
+        itemText(translationBuilder);
     }
 
     private void itemText(TranslationBuilder builder) {
@@ -40,6 +43,7 @@ public class BRLangGen extends FabricLanguageProvider {
         builder.add(NoclipWarningScreen.AGREE_KEY, "Yes");
         builder.add(NoclipWarningScreen.WARNING_KEY, "(Interacting with it will have dire consequences, do you touch the block?)");
         builder.add(NoclipWarningScreen.OMEN_KEY, "Reality unfolds around you...");
+        builder.add("backrooms_redux.sanity.beginning", "Grasping the situation, you become nervous...");
     }
 
     private void gameRuleText(TranslationBuilder builder) {
@@ -50,7 +54,10 @@ public class BRLangGen extends FabricLanguageProvider {
     private void miscText(TranslationBuilder builder) {
         builder.add(BRCommonRegistry.GLITCHED_PLANK.getTranslationKey(), "Glitched Planks");
         builder.add(BRCommonRegistry.GLITCHED_STONE.getTranslationKey(), "Glitched Stone");
+    }
+
+    private void entityText(TranslationBuilder builder) {
         builder.add(BRCommonRegistry.HALLUCINATION_SPAWN_EGG.getTranslationKey(), "Hallucination Spawn Egg");
-        builder.add("backrooms_redux.sanity.beginning", "Grasping the situation, you become nervous...");
+        builder.add(BREntities.HALLUCINATION.getTranslationKey(), "H4lluc1n4ti0n");
     }
 }
