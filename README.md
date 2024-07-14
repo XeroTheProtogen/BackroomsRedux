@@ -24,6 +24,7 @@ Backrooms Redux intends to add levels 0-11, with levels being released in waves 
   - [x] Level 0, The Tutorial
   - [ ] Level 1, Habitable Zone
   - [ ] Level 2, Abandoned Utility Halls AKA Pipe Dreams
+  - [ ] The Hub
         
 - [ ] Wave 2: "Electric Interlim"
   - [ ] Level 3, Electrical Station
