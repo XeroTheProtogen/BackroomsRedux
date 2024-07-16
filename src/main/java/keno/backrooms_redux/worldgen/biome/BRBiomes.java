@@ -12,6 +12,11 @@ public class BRBiomes {
     /** Used for things like insanity */
     public static final TagKey<Biome> BACKROOMS_BIOMES = TagKey.of(RegistryKeys.BIOME,
             BackroomsRedux.modLoc("backrooms_biomes"));
+    /** Add your level's biome to this tag if you wish to disable the ability
+     to see other players within it*/
+    public static final TagKey<Biome> ISOLATING_BIOMES = TagKey.of(RegistryKeys.BIOME,
+            BackroomsRedux.modLoc("isolating_biomes"));
+
     public static final RegistryKey<Biome> LEVEL_0 = get(BRRegistrar.LEVEL_O_ID);
 
     public static RegistryKey<Biome> get(Identifier id) {

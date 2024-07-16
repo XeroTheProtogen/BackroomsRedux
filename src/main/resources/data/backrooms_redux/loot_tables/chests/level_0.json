@@ -16,7 +16,7 @@
         {
           "type": "minecraft:item",
           "name": "backrooms_redux:almond_water",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -42,6 +42,11 @@
           "type": "minecraft:item",
           "name": "minecraft:cobweb",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 2
         }
       ]
     }
