@@ -31,7 +31,7 @@ public class AlmondWaterItem extends Item {
                     }
                     if (stack != null) {
                         SanityComponent component = BRComponentRegistry.SANITY.get(player);
-                        component.setValue(MathHelper.clamp(component.getValue() + 20f, 1f, 100f));
+                        component.setValue(MathHelper.clamp(component.getValue() + 3f, 1f, 100f));
                         BRComponentRegistry.SANITY.sync(user);
                         stack.decrement(1);
                         return TypedActionResult.success(stack, true);
