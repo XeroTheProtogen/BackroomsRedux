@@ -64,7 +64,7 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
 
     @Override
     public int getPlacementRadius() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
 
     @Override
     public int getWorldHeight() {
-        return 80;
+        return 64;
     }
 
     @Override
