@@ -4,10 +4,10 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import keno.backrooms_redux.BackroomsRedux;
-import keno.backrooms_redux.block.LampBlock;
-import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.utils.BRLootTables;
 import keno.backrooms_redux.utils.RngUtils;
+import keno.backrooms_redux.worldgen.piece_pools.PieceManager;
+import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
 import net.ludocrypt.limlib.api.world.Manipulation;
 import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
@@ -37,8 +37,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Function;
 
-import static keno.backrooms_redux.registry.BRCommonRegistry.TILE_LIGHT;
-
 public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
     public static final Codec<Level0ChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(BiomeSource.CODEC.fieldOf("biome_source").stable().forGetter((chunkGenerator)
@@ -46,6 +44,7 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
                     NbtGroup.CODEC.fieldOf("nbt_group").stable().forGetter((chunkGenerator)
                             -> chunkGenerator.nbtGroup)).apply(instance, instance.stable(Level0ChunkGenerator::new)));
     private double woolType;
+    private final PieceManager manager = BackroomsRedux.singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER);
 
     public Level0ChunkGenerator(BiomeSource biomeSource, NbtGroup nbtGroup) {
         super(biomeSource, nbtGroup);
@@ -114,18 +113,9 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
     protected void modifyStructure(ChunkRegion region, BlockPos pos, BlockState state, Optional<NbtCompound> blockEntityNbt) {
         super.modifyStructure(region, pos, state, blockEntityNbt);
         Random random = RngUtils.getFromPos(region, region.getChunk(pos), pos);
-
-        //Randomly swap moist carpet for soggy carpet
-        if (state.isOf(BRCommonRegistry.MOIST_CARPET)) {
-            if (random.nextDouble() <= 0.05) {
-                region.setBlockState(pos, BRCommonRegistry.SOGGY_CARPET.getDefaultState(), Block.NOTIFY_ALL, 1);
-            }
-        }
-
-        if (state.isOf(BRCommonRegistry.MOIST_CARPET_STAIRS)) {
-            if (random.nextDouble() < 0.1) {
-                region.setBlockState(pos, BRCommonRegistry.SOGGY_CARPET_STAIRS.getStateWithProperties(state), Block.NOTIFY_ALL, 1);
-            }
+        for (PieceManager.PieceProcessor<ChunkRegion, BlockPos, BlockState,
+                Optional<NbtCompound>, Random> processor : this.manager.getProcessors()) {
+            processor.applyProcessor(region, pos, state, blockEntityNbt, random);
         }
 
         region.getChunk(pos).forEachBlockMatchingPredicate(blockState -> blockState.isOf(Blocks.BROWN_WOOL),
@@ -137,23 +127,6 @@ public class Level0ChunkGenerator extends AbstractNbtChunkGenerator {
                     } else if (this.woolType > 0.5 && this.woolType <= 0.75) {
                         region.setBlockState(pos1, Blocks.RED_WOOL.getDefaultState(), Block.NOTIFY_ALL, 1);
                     }});
-
-        //If either vector in the roof block position is a multiple of 4, replace with lighting
-        //White wool is treated as a placeholder
-        if (state.isOf(Blocks.WHITE_WOOL)) {
-            if ((pos.getX() % 6 == 0 && pos.getZ() % 6 == 0) && pos.getY() == 5) {
-                region.setBlockState(pos, TILE_LIGHT.getDefaultState().with(LampBlock.LIT,
-                        random.nextDouble() > 0.2), Block.NOTIFY_ALL, 1);
-            } else {
-                region.setBlockState(pos, BRCommonRegistry.ROOF_TILE.getDefaultState(), Block.NOTIFY_ALL, 1);
-            }
-        }
-
-        if (state.isOf(Blocks.DIRT)) {
-            if (random.nextBoolean()) {
-                region.setBlockState(pos, Blocks.COARSE_DIRT.getDefaultState(), Block.NOTIFY_ALL, 1);
-            }
-        }
     }
 
     @Override

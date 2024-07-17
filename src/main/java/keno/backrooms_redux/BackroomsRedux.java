@@ -10,10 +10,8 @@ import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRSoundEvents;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import keno.backrooms_redux.worldgen.chunk.BRChunkGenerators;
-import keno.backrooms_redux.worldgen.piece_pools.PieceManager;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
 import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
-import keno.backrooms_redux.worldgen.piece_pools.constants.BRPiecePools;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -28,6 +26,7 @@ public class BackroomsRedux implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final String ID = "backrooms_redux";
     public static final Logger LOGGER = LoggerFactory.getLogger(ID);
+	public static final PoolArraysSingleton singleton = PoolArraysSingleton.getInstance();
 
 	@Override
 	public void onInitialize() {
@@ -39,7 +38,7 @@ public class BackroomsRedux implements ModInitializer {
 		BRChunkGenerators.init();
 		BRBiomes.registerBiomes();
 		BRSoundEvents.init();
-		registerPieceManagers(PoolArraysSingleton.getInstance());
+		BRPieceManagers.registerPieceManagers(PoolArraysSingleton.getInstance());
 		BRCommands.init();
 		BREntities.init();
 		registerEntityAttributes();
@@ -50,20 +49,6 @@ public class BackroomsRedux implements ModInitializer {
 
 	private void registerEntityAttributes() {
 		FabricDefaultAttributeRegistry.register(BREntities.HALLUCINATION, HallucinationEntity.setAttributes());
-	}
-
-	private void registerPieceManagers(PoolArraysSingleton registry) {
-		PieceManager level0Manager = new PieceManager();
-		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_COMMON,
-				"level_0_common_1", "level_0_common_2",
-				"level_0_common_3", "level_0_common_4");
-		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_UNCOMMON,
-				"level_0_uncommon_1", "level_0_uncommon_2",
-				"level_0_uncommon_3", "level_0_uncommon_4");
-		level0Manager.registerPiecesToPool(BRPiecePools.LEVEL_0_RARE,
-				"level_0_tent", "level_0_chasm");
-
-		registry.addManagerToPool(BRPieceManagers.LEVEL_0_MANAGER, level0Manager);
 	}
 
 

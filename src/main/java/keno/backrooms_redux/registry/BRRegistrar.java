@@ -7,7 +7,6 @@ import keno.backrooms_redux.worldgen.biome.Level0Biome;
 import keno.backrooms_redux.worldgen.chunk.Level0ChunkGenerator;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
 import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
-import keno.backrooms_redux.worldgen.piece_pools.constants.BRPiecePools;
 import net.ludocrypt.limlib.api.LimlibRegistrar;
 import net.ludocrypt.limlib.api.LimlibRegistryHooks;
 import net.ludocrypt.limlib.api.LimlibWorld;
@@ -15,7 +14,6 @@ import net.ludocrypt.limlib.api.effects.sound.SoundEffects;
 import net.ludocrypt.limlib.api.effects.sound.reverb.StaticReverbEffect;
 import net.ludocrypt.limlib.api.skybox.EmptySkybox;
 import net.ludocrypt.limlib.api.skybox.Skybox;
-import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -49,17 +47,8 @@ public class BRRegistrar implements LimlibRegistrar {
                             registry.get(RegistryKeys.DIMENSION_TYPE)
                                     .getOptional(RegistryKey.of(RegistryKeys.DIMENSION_TYPE, BackroomsRedux.modLoc("level_0")))
                                     .get(),
-                            new Level0ChunkGenerator(
-                                    new FixedBiomeSource(registry.get(RegistryKeys.BIOME).getOptional(BRBiomes.LEVEL_0).get()),
-                                    NbtGroup.Builder.create(LEVEL_O_ID)
-                                            .with("level_0_common", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
-                                                    .getPool(BRPiecePools.LEVEL_0_COMMON))
-                                            .with("level_0_uncommon", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
-                                                    .getPool(BRPiecePools.LEVEL_0_UNCOMMON))
-                                            .with("level_0_rare", singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER)
-                                                    .getPool(BRPiecePools.LEVEL_0_RARE))
-                                            .with("level_0_manilla_room")
-                                            .build())));
+                            new Level0ChunkGenerator(new FixedBiomeSource(registry.get(RegistryKeys.BIOME).getOptional(BRBiomes.LEVEL_0).get()),
+                                    singleton.getManager(BRPieceManagers.LEVEL_0_MANAGER).getGroup())));
 
     public static final RegistryKey<World> LEVEL_0_WORLD = RegistryKey.of(RegistryKeys.WORLD, LEVEL_O_ID);
 

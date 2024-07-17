@@ -1,5 +1,6 @@
 package keno.backrooms_redux.worldgen.piece_pools;
 
+import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
@@ -9,31 +10,42 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ChunkRegion;
 import org.apache.commons.lang3.ArrayUtils;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class PieceManager {
     protected Map<Identifier, String[]> pools = new HashMap<>();
-    protected Map<Identifier, PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>,
-            Random>> processors = new HashMap<>();
+    private Map<Identifier, String> uniquePieces = new HashMap<>();
+    private List<PieceProcessor<ChunkRegion, BlockPos, BlockState,
+            Optional<NbtCompound>, Random>> pieceProcessors = new ArrayList<>();
+    private final Identifier managerId;
+
+    public PieceManager(Identifier managerId) {
+        this.managerId = managerId;
+    }
+
+    public Identifier getManagerId() {
+        return managerId;
+    }
 
     public void registerPiecesToPool(Identifier poolId, String... pieces) {
         if (this.pools.get(poolId) == null) {
-            this.pools.put(poolId, pieces);
+            if (pieces.length == 1) {
+                registerPiece(poolId, pieces[0]);
+            }
+            else {
+                this.pools.put(poolId, pieces);
+            }
         } else {
             this.pools.put(poolId, ArrayUtils.addAll(this.pools.get(poolId), pieces));
         }
     }
 
-    public void registerPieceProcessor(Identifier processorId,
-                                       PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> processor) {
-        if (this.processors.get(processorId) != null) {
-            throw new KeyAlreadyExistsException("There is already a processor here at " + processorId.toString());
-        } else {
-            this.processors.put(processorId, processor);
-        }
+    public void registerPiece(Identifier pieceId, String piece) {
+        this.uniquePieces.putIfAbsent(pieceId, piece);
+    }
+
+    public void registerPieceProcessor(PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> processor) {
+        this.pieceProcessors.add(processor);
     }
 
     public String[] getPool(Identifier poolId) {
@@ -43,11 +55,23 @@ public class PieceManager {
         return this.pools.get(poolId);
     }
 
-    public PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random> getProcessor(Identifier processorId) {
-        if (pools.get(processorId) == null) {
-            throw new InvalidIdentifierException("This processor does not exist at the id: " + processorId.toString());
+    public NbtGroup getGroup() {
+        NbtGroup.Builder builder = NbtGroup.Builder.create(getManagerId());
+        if (this.pools.isEmpty()) throw new EmptyStackException();
+
+        for (Identifier key : this.pools.keySet()) {
+            builder.with(key.getPath(), this.getPool(key));
         }
-        return this.processors.get(processorId);
+
+        for (String piece : this.uniquePieces.values()) {
+            builder.with(piece);
+        }
+
+        return builder.build();
+    }
+
+    public List<PieceProcessor<ChunkRegion, BlockPos, BlockState, Optional<NbtCompound>, Random>> getProcessors() {
+        return this.pieceProcessors;
     }
 
     @FunctionalInterface

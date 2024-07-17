@@ -2,7 +2,6 @@ package keno.backrooms_redux.components.sanity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
-import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.components.BRComponentRegistry;
 import keno.backrooms_redux.components.base.FloatComponent;
 import keno.backrooms_redux.entity.BREntities;
@@ -65,7 +64,6 @@ public class SanityComponent implements FloatComponent, CommonTickingComponent, 
                 BRComponentRegistry.SANITY.sync(player);
             }
         }
-        BackroomsRedux.LOGGER.info("Sanity: {}", getValue());
     }
 
     @Override
