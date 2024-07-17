@@ -38,9 +38,9 @@ public class BRRegistrar implements LimlibRegistrar {
     private static final PoolArraysSingleton singleton = PoolArraysSingleton.getInstance();
 
     public static final LimlibWorld LEVEL_0 = new LimlibWorld(() -> new DimensionType(OptionalLong.of(13000),
-            false, false, false, false, 8.0d,
-            true, true, -64, 80, 0, BlockTags.INFINIBURN_OVERWORLD,
-            Identifier.of("minecraft", "end"), 0f,
+            false, false, false, false, 1.0d,
+            true, true, -64, 128, 0, BlockTags.INFINIBURN_OVERWORLD,
+            Identifier.of("minecraft", "overworld"), 0f,
             new DimensionType.MonsterSettings(true, false, ConstantIntProvider.ZERO, 0)),
             (registry) ->
                     new DimensionOptions(

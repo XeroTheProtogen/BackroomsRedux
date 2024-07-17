@@ -13,7 +13,10 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.GameRules;
@@ -43,10 +46,11 @@ public class BRCommonRegistry {
 
     //Items
     public static final Item ALMOND_WATER = registerItem("almond_water", new AlmondWaterItem(new FabricItemSettings()
-            .maxCount(8).food(new FoodComponent.Builder().hunger(6).saturationModifier(4).alwaysEdible().build())));
+            .maxCount(8)));
     public static final Item HALLUCINATION_SPAWN_EGG = registerItem("hallucination_spawn_egg",
             new SpawnEggItem(BREntities.HALLUCINATION, 0xff0eaeae,
                     0xff6b6b6b, new FabricItemSettings().maxCount(16)));
+
 
     //Game rules
     /**When on, this gamerule forces the player's spawn to be in the backrooms on first entry*/
