@@ -3,7 +3,8 @@
   "package": "keno.backrooms_redux.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "StructurePoolAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
