@@ -1,7 +1,9 @@
 package keno.backrooms_redux.server.events;
 
 import com.mojang.datafixers.util.Pair;
+import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.mixin.StructurePoolAccessor;
+import keno.backrooms_redux.worldgen.processors.BRProcessorLists;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -26,9 +28,46 @@ public class AddVillageBuildingsCallback implements ServerLifecycleEvents.Server
     public void addNewVillagerBuildings(final MinecraftServer server) {
         Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
         Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
+
+        addBuildingToPool(StructureType.LEGACY,
+                templatePoolRegistry,
+                processorListRegistry, BRProcessorLists.DECAYING_HOUSE,
+                BackroomsRedux.mcLoc("village/plains/houses"),
+                "backrooms_redux:decaying/florist_shop.nbt",
+                4);
+
+        /*
+        addBuildingToPool(StructureType.LEGACY,
+                templatePoolRegistry,
+                processorListRegistry, BRProcessorLists.DECAYING_HOUSE,
+                BackroomsRedux.mcLoc("village/desert/houses"),
+                "backrooms_redux:decaying/clothes_shop",
+                2);
+
+        addBuildingToPool(StructureType.LEGACY,
+                templatePoolRegistry,
+                processorListRegistry, BRProcessorLists.DECAYING_HOUSE,
+                BackroomsRedux.mcLoc("village/savanna/houses"),
+                "backrooms_redux:decaying/bakery",
+                2);
+
+        addBuildingToPool(StructureType.LEGACY,
+                templatePoolRegistry,
+                processorListRegistry, BRProcessorLists.DECAYING_HOUSE,
+                BackroomsRedux.mcLoc("village/snowy/houses"),
+                "backrooms_redux:decaying/unknown",
+                1);
+
+        addBuildingToPool(StructureType.LEGACY,
+                templatePoolRegistry,
+                processorListRegistry, BRProcessorLists.DECAYING_HOUSE,
+                BackroomsRedux.mcLoc("village/taiga/houses"),
+                "backrooms_redux:decaying/furniture_store",
+                2); */
     }
 
-    private static void addBuildingToPool(Registry<StructurePool> templatePoolRegistry,
+    private static void addBuildingToPool(StructureType type,
+                                          Registry<StructurePool> templatePoolRegistry,
                                           Registry<StructureProcessorList> processorListRegistry,
                                           RegistryKey<StructureProcessorList> processorKey,
                                           Identifier poolRL,
@@ -41,7 +80,9 @@ public class AddVillageBuildingsCallback implements ServerLifecycleEvents.Server
 
         // Grabs the nbt piece and creates a SinglePoolElement of it that we can add to a structure's pool.
         // Use .ofProcessedLegacySingle( for villages/outposts and .ofProcessedSingle( for everything else
-        SinglePoolElement piece = SinglePoolElement.ofProcessedLegacySingle(nbtPieceRL, structureProcessorList).apply(StructurePool.Projection.RIGID);
+        SinglePoolElement piece = type == StructureType.LEGACY ?
+                SinglePoolElement.ofProcessedLegacySingle(nbtPieceRL, structureProcessorList).apply(StructurePool.Projection.RIGID)
+                : SinglePoolElement.ofProcessedSingle(nbtPieceRL, structureProcessorList).apply(StructurePool.Projection.RIGID);
 
         // Use AccessWideners or Accessor Mixin to make StructurePool's templates field public for us to see.
         // Weight is handled by how many times the entry appears in this list.
@@ -57,5 +98,10 @@ public class AddVillageBuildingsCallback implements ServerLifecycleEvents.Server
         List<Pair<StructurePoolElement, Integer>> listOfPieceEntries = new ArrayList<>(pool.elementCounts);
         listOfPieceEntries.add(new Pair<>(piece, weight));
         pool.elementCounts = listOfPieceEntries;
+    }
+
+    private enum StructureType {
+        NORMAL,
+        LEGACY
     }
 }

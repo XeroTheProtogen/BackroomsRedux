@@ -39,7 +39,7 @@
 			"keno.backrooms_redux.registry.BRRegistrar"
 		],
 		"server": [
-			"keno.backrooms_redux.networking.BRServer"
+			"keno.backrooms_redux.server.BRServer"
 		],
 		"cardinal-components": [
 			"keno.backrooms_redux.components.BRComponentRegistry"

@@ -3,6 +3,7 @@ package keno.backrooms_redux.networking;
 import keno.backrooms_redux.BackroomsRedux;
 import keno.backrooms_redux.client.BRClient;
 import keno.backrooms_redux.client.screens.NoclipWarningScreen;
+import keno.backrooms_redux.server.BRServer;
 import net.minecraft.util.Identifier;
 
 public final class BRPackets {

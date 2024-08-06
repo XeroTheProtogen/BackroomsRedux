@@ -21,6 +21,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 @Environment(EnvType.CLIENT)
 public class HallucinationEntityRenderer extends GeoEntityRenderer<HallucinationEntity> {
     MinecraftClient client = MinecraftClient.getInstance();
+    
     public HallucinationEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new HallucinationEntityModel());
     }
