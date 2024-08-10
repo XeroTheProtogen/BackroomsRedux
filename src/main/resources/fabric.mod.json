@@ -7,7 +7,6 @@
 	"authors": [
 		"Keno"
 	],
-	"accessWidener": "backrooms_redux.accesswidener",
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
