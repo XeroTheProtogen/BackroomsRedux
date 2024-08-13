@@ -14,7 +14,8 @@ import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class NoclipWarningScreen extends Screen {
-    private ButtonWidget button;
+    private ButtonWidget touchBlock;
+    private ButtonWidget escapeMenu;
     public static final String AGREE_KEY = "backrooms_redux.gui.agreement";
     public static final String OMEN_KEY = "backrooms_redux.gui.omen";
     public static final String WARNING_KEY = "backrooms_redux.gui.warning";
@@ -30,22 +31,27 @@ public class NoclipWarningScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.button = ButtonWidget.builder(AGREE, button -> {
+        this.touchBlock = ButtonWidget.builder(AGREE, button -> {
             PacketByteBuf packet = PacketByteBufs.empty();
             this.client.setScreen(null);
             ClientPlayNetworking.send(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS, packet);
         }).position(0, 0).dimensions(50, 70, 30, 30).build();
-        this.addDrawableChild(button);
+        this.escapeMenu = ButtonWidget.builder(Text.literal("X"), button -> {
+            this.client.setScreen(null);
+        }).size(25, 25).build();
+        this.addDrawableChild(touchBlock);
+        this.addDrawableChild(escapeMenu);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        button.render(context, mouseX, mouseY, delta);
-        button.setPosition(context.getScaledWindowWidth() / 2 - 20, context.getScaledWindowHeight() / 2 - 30);
+        touchBlock.render(context, mouseX, mouseY, delta);
+        escapeMenu.render(context, mouseX, mouseY, delta);
+        touchBlock.setPosition(context.getScaledWindowWidth() / 2 - 20, context.getScaledWindowHeight() / 2 - 30);
         context.drawCenteredTextWithShadow(client.textRenderer, WARNING, (context.getScaledWindowWidth() / 2),
                 (context.getScaledWindowHeight() / 2) + 50, 0xffffffff);
-        if (button.isHovered()) {
+        if (touchBlock.isHovered()) {
             context.drawCenteredTextWithShadow(client.textRenderer, OMEN,
                     context.getScaledWindowWidth() / 2,
                     (context.getScaledWindowHeight() / 2) - 50, 0xffff6347);

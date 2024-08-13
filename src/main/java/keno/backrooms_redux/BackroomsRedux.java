@@ -8,13 +8,11 @@ import keno.backrooms_redux.networking.BRPackets;
 import keno.backrooms_redux.networking.TeleportPlayer;
 import keno.backrooms_redux.registry.BRCommonRegistry;
 import keno.backrooms_redux.registry.BRSoundEvents;
-import keno.backrooms_redux.server.events.AddVillageBuildingsCallback;
 import keno.backrooms_redux.worldgen.biome.BRBiomes;
 import keno.backrooms_redux.worldgen.chunk.BRChunkGenerators;
 import keno.backrooms_redux.worldgen.piece_pools.PoolArraysSingleton;
 import keno.backrooms_redux.worldgen.piece_pools.constants.BRPieceManagers;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
@@ -44,7 +42,6 @@ public class BackroomsRedux implements ModInitializer {
 		BRCommands.init();
 		BREntities.init();
 		registerEntityAttributes();
-		ServerLifecycleEvents.SERVER_STARTING.register(new AddVillageBuildingsCallback());
 		ServerPlayNetworking.registerGlobalReceiver(BRPackets.TELEPORT_PLAYER_TO_BACKROOMS,
 				((server, player, handler, buf, responseSender) ->
 						server.execute(() -> TeleportPlayer.teleportPlayerToBackrooms(server, player))));
