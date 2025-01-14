@@ -1,3 +1,5 @@
+[REPOSITORY NO LONGER IN USE, GO TO PROJECT REDUX INSTEAD]
+
 # Backrooms Redux
 [IMPORTANT] Due to an issue with Limlib Fabric, you won't see any new pieces on a level unless you create a new world or reset the data for that dimension (Unverified) altogether.
 [NOTE] All credits for any 3rd party code, assets and information used can be found at the bottom of the readme, alongside anyone whose contributed to Backrooms Redux directly (Thanks for supporting me btw :>)
