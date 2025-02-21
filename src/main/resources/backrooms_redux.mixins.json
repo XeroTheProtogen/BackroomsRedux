@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.keno.backrooms_redux.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ChunkGeneratingMixinSquared",
+    "AbstractNbtChunkGeneratorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1,
+    "maxShiftBy": 2
+	}
+}
