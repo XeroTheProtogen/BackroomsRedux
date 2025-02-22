@@ -1,13 +1,15 @@
 package net.keno.backrooms_redux.worldgen;
 
 import net.keno.backrooms_redux.BackroomsRedux;
-import net.ludocrypt.limlib.api.world.NbtGroup;
+import net.keno.backrooms_redux.levels.LevelPool;
+
+import java.util.List;
+import java.util.Map;
 
 public class BRLevelPiecePools {
-    public static final NbtGroup TEST_DYNAMIC_GROUP = NbtGroup.Builder
-            .create(BackroomsRedux.modLoc("test"))
-            .with("common", "0", "1", "2")
-            .build();
+    public static final LevelPool TEST_LEVEL_POOL
+            = new LevelPool(BackroomsRedux.modLoc("test"),
+            Map.of("common", List.of("0", "1", "2")));
 
     public static void init() {
         BackroomsRedux.LOGGER.info("Initializing dynamic groups...");

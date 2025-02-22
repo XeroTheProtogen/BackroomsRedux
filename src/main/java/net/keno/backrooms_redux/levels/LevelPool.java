@@ -1,0 +1,82 @@
+package net.keno.backrooms_redux.levels;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.ludocrypt.limlib.api.world.NbtGroup;
+import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//TODO Create loader for level pool jsons
+public class LevelPool {
+    private final Identifier basePool;
+    protected final HashMap<String, List<String>> subPools;
+
+    public static final Codec<LevelPool> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                    Identifier.CODEC.fieldOf("base_pool").stable().forGetter(LevelPool::getBasePool),
+                    Codec.unboundedMap(Codec.STRING, Codec.list(Codec.STRING))
+                            .fieldOf("sub_pools").forGetter(LevelPool::getSubPools)
+            ).apply(instance, LevelPool::new));
+
+    public LevelPool(Identifier basePool, Map<String, List<String>> subPools) {
+        this.basePool = basePool;
+        this.subPools = new HashMap<>(subPools);
+    }
+
+    public Identifier getBasePool() {
+        return basePool;
+    }
+
+    public Map<String, List<String>> getSubPools() {
+        return Map.copyOf(subPools);
+    }
+
+    public void addSubPool(String subPool, String... pieces) {
+        if (!subPools.containsKey(subPool)) {
+            subPools.put(subPool, List.of(pieces));
+        }
+    }
+
+    public void addPiecesToSubPool(String subPool, String... pieces) {
+        if (subPools.containsKey(subPool)) {
+            List<String> filteredList = new ArrayList<>();
+            for (String piece : pieces) {
+                if (!subPools.get(subPool).contains(piece)) {
+                    filteredList.add(piece);
+                }
+            }
+            subPools.get(subPool).addAll(filteredList);
+        }
+    }
+
+    public void removeSubPool(String subPool) {
+        subPools.remove(subPool);
+    }
+
+    public void removePiecesFromSubPool(String subPool, String... pieces) {
+        if (subPools.containsKey(subPool)) {
+            List<String> filteredList = new ArrayList<>();
+            for (String piece : pieces) {
+                if (subPools.get(subPool).contains(piece)) {
+                    filteredList.add(piece);
+                }
+            }
+            subPools.get(subPool).removeAll(filteredList);
+        }
+    }
+
+    public NbtGroup convertToGroup() {
+        NbtGroup.Builder builder = NbtGroup.Builder
+                .create(basePool);
+
+        for (String subPool : subPools.keySet()) {
+            builder = builder.with(subPool, subPools.get(subPool).toArray(String[]::new));
+        }
+
+        return builder.build();
+    }
+}

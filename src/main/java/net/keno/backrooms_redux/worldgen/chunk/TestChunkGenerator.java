@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class TestChunkGenerator extends AbstractNbtChunkGenerator implements DynamicNbtUpdater {
-    private int chunksTilCycle = 4096;
     private static final NbtGroup STARTING_GROUP = NbtGroup
             .Builder.create(BackroomsRedux.modLoc("test"))
             .with("common", "0").build();
@@ -44,7 +43,7 @@ public class TestChunkGenerator extends AbstractNbtChunkGenerator implements Dyn
 
     @Override
     public NbtGroup getDynamicGroup() {
-        return BRLevelPiecePools.TEST_DYNAMIC_GROUP;
+        return BRLevelPiecePools.TEST_LEVEL_POOL.convertToGroup();
     }
 
     @Override

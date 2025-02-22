@@ -43,17 +43,21 @@ public class BRRegistrar implements LimlibRegistrar {
 
     @Override
     public void registerHooks() {
-        LimlibWorld.LIMLIB_WORLD
-                .add(RegistryKey.of(LimlibWorld.LIMLIB_WORLD_KEY, TEST), TEST_WORLD, RegistryEntryInfo.DEFAULT);
+        if (BackroomsRedux.isDevEnvironment) {
+            LimlibWorld.LIMLIB_WORLD
+                    .add(RegistryKey.of(LimlibWorld.LIMLIB_WORLD_KEY, TEST), TEST_WORLD, RegistryEntryInfo.DEFAULT);
+        }
 
         LimlibRegistryHooks.hook(RegistryKeys.BIOME, (infoLookup, registryKey, registry) -> {
             RegistryEntryLookup<PlacedFeature> features = infoLookup.getRegistryInfo(RegistryKeys.PLACED_FEATURE).get().entryLookup();
             RegistryEntryLookup<ConfiguredCarver<?>> carvers = infoLookup.getRegistryInfo(RegistryKeys.CONFIGURED_CARVER).get().entryLookup();
 
-            registry.add(BRBiomes.TEST_BIOME,
-                    BRBiomes.create(features, carvers, 0xfede3a, 0x00ecff, 0x00ecff,
-                            0x000000, null,
-                            biome -> biome.precipitation(false).temperature(0.5f).downfall(0.3f)), RegistryEntryInfo.DEFAULT);
+            if (BackroomsRedux.isDevEnvironment) {
+                registry.add(BRBiomes.TEST_BIOME,
+                        BRBiomes.create(features, carvers, 0xfede3a, 0x00ecff, 0x00ecff,
+                                0x000000, null,
+                                biome -> biome.precipitation(false).temperature(0.5f).downfall(0.3f)), RegistryEntryInfo.DEFAULT);
+            }
         });
     }
 }
