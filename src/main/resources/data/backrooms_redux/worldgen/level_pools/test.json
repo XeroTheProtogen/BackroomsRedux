@@ -1,0 +1,9 @@
+{
+  "base_pool": "backrooms_redux:test",
+  "sub_pools": {
+    "common": [
+      "0", "1", "2"
+    ]
+  },
+  "override": false
+}

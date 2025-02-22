@@ -8,6 +8,8 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
 public interface DynamicNbtUpdater {
+    /** IMPORTANT: NEVER OVERRIDE THIS, OR YOUR CHUNK GENERATOR WILL BREAK*/
+    @Deprecated
     default void cycle(AbstractNbtChunkGenerator chunkGenerator) {
         if (chunkGenerator.nbtGroup != getDynamicGroup()) {
             ((UpdatedNbtContainer)chunkGenerator).setGroup(getDynamicGroup());

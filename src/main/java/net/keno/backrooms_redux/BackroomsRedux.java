@@ -1,16 +1,21 @@
 package net.keno.backrooms_redux;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import net.keno.backrooms_redux.listeners.LevelPoolListener;
 import net.keno.backrooms_redux.registry.BRCommon;
-import net.keno.backrooms_redux.worldgen.BRLevelPiecePools;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BackroomsRedux implements ModInitializer {
 	public static final String MOD_ID = "backrooms_redux";
+	public static final Gson GSON = new GsonBuilder().create();
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
@@ -20,8 +25,9 @@ public class BackroomsRedux implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new LevelPoolListener());
+
 		BRCommon.init();
-		BRLevelPiecePools.init();
 	}
 
 	public static Identifier modLoc(String loc) {

@@ -10,21 +10,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//TODO Create loader for level pool jsons
 public class LevelPool {
     private final Identifier basePool;
     protected final HashMap<String, List<String>> subPools;
+    public final boolean shouldOverride;
 
     public static final Codec<LevelPool> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("base_pool").stable().forGetter(LevelPool::getBasePool),
                     Codec.unboundedMap(Codec.STRING, Codec.list(Codec.STRING))
-                            .fieldOf("sub_pools").forGetter(LevelPool::getSubPools)
+                            .fieldOf("sub_pools").forGetter(LevelPool::getSubPools),
+                    Codec.BOOL.fieldOf("override").stable().forGetter(levelPool -> levelPool.shouldOverride)
             ).apply(instance, LevelPool::new));
 
-    public LevelPool(Identifier basePool, Map<String, List<String>> subPools) {
+    public LevelPool(Identifier basePool, Map<String, List<String>> subPools, boolean shouldOverride) {
         this.basePool = basePool;
         this.subPools = new HashMap<>(subPools);
+        this.shouldOverride = shouldOverride;
     }
 
     public Identifier getBasePool() {
@@ -33,6 +35,10 @@ public class LevelPool {
 
     public Map<String, List<String>> getSubPools() {
         return Map.copyOf(subPools);
+    }
+
+    public boolean hasSubPool(String subPool) {
+        return subPools.containsKey(subPool);
     }
 
     public void addSubPool(String subPool, String... pieces) {

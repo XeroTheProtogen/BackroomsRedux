@@ -6,7 +6,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class BRCommon {
+    private static void registerChunkGenerators() {
+        if (BackroomsRedux.isDevEnvironment) {
+            Registry.register(Registries.CHUNK_GENERATOR, BackroomsRedux.modLoc("test"), TestChunkGenerator.CODEC);
+        }
+    }
+
     public static void init() {
-        Registry.register(Registries.CHUNK_GENERATOR, BackroomsRedux.modLoc("test"), TestChunkGenerator.CODEC);
+        registerChunkGenerators();
     }
 }
