@@ -1,6 +1,7 @@
 package net.keno.backrooms_redux.worldgen;
 
 import net.keno.backrooms_redux.registry.BRRegistrar;
+import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -16,6 +17,8 @@ import java.util.function.Function;
 
 public class BRBiomes {
     public static final RegistryKey<Biome> TEST_BIOME = RegistryKey.of(RegistryKeys.BIOME, BRRegistrar.TEST);
+
+    public static final RegistryKey<Biome> LEVEL_0_BIOME = RegistryKey.of(RegistryKeys.BIOME, Level0ChunkGenerator.LEVEL_0);
 
     public static Biome create(RegistryEntryLookup<PlacedFeature> features,
                                RegistryEntryLookup<ConfiguredCarver<?>> carvers,

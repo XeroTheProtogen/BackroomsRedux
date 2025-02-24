@@ -12,7 +12,7 @@ public abstract class SimpleDynamicChunkGenerator extends AbstractNbtChunkGenera
     }
 
     /** Override this to set your dynamic group */
-    protected abstract NbtGroup getGroup();
+    public abstract NbtGroup getGroup();
 
     /** Don't override this, override getGroup() instead
      * @see #getGroup() */

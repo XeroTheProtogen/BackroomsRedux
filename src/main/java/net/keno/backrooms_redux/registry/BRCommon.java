@@ -1,9 +1,11 @@
 package net.keno.backrooms_redux.registry;
 
+import com.mojang.serialization.MapCodec;
 import net.keno.backrooms_redux.BackroomsRedux;
 import net.keno.backrooms_redux.blocks.LampBlock;
 import net.keno.backrooms_redux.items.BRItemGroups;
 import net.keno.backrooms_redux.worldgen.chunk.TestChunkGenerator;
+import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -14,6 +16,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class BRCommon {
     // Items
@@ -38,12 +41,18 @@ public class BRCommon {
             new LampBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.LANTERN)
                     .strength(-1f, 3600f)
                     .registryKey(RegistryKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("tile_light"))),
-                    11, 0), new Item.Settings());
+                    7, 0), new Item.Settings());
 
     private static void registerChunkGenerators() {
         if (BackroomsRedux.isDevEnvironment) {
             Registry.register(Registries.CHUNK_GENERATOR, BackroomsRedux.modLoc("test"), TestChunkGenerator.CODEC);
         }
+
+        registerChunkGenCodec("level_0", Level0ChunkGenerator.CODEC);
+    }
+
+    public static <e extends ChunkGenerator> void registerChunkGenCodec(String name, MapCodec<e> codec) {
+        Registry.register(Registries.CHUNK_GENERATOR, BackroomsRedux.modLoc(name), codec);
     }
 
     public static Block registerBlock(String name, Block block, Item.Settings itemSettings) {

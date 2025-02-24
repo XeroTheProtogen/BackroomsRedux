@@ -3,10 +3,15 @@ package net.keno.backrooms_redux.worldgen.chunk;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.keno.backrooms_redux.BackroomsRedux;
+import net.keno.backrooms_redux.blocks.LampBlock;
 import net.keno.backrooms_redux.listeners.HeardData;
+import net.keno.backrooms_redux.registry.BRCommon;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LightBlock;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.collection.BoundedRegionArray;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +25,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.noise.NoiseConfig;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /** A chunk generator used to test experimental API, enabled only in dev environments */
@@ -29,8 +35,7 @@ public class TestChunkGenerator extends AbstractNbtChunkGenerator implements Dyn
             .with("common", "0").build();
 
 
-    public static final MapCodec<TestChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(instance ->
-            instance.group(
+    public static final MapCodec<TestChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     BiomeSource.CODEC.fieldOf("biome_source").stable().forGetter(chunkGen -> chunkGen.biomeSource),
                     NbtGroup.CODEC.fieldOf("nbt_group").forGetter(TestChunkGenerator::getDynamicGroup)
             ).apply(instance, instance.stable(TestChunkGenerator::new)));

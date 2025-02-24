@@ -9,7 +9,7 @@ import net.minecraft.state.property.Properties;
 import org.jetbrains.annotations.Nullable;
 
 public class LampBlock extends Block {
-    private static BooleanProperty LIT = Properties.LIT;
+    public static BooleanProperty LIT = Properties.LIT;
 
     public LampBlock(Settings settings, int onLuminance, int offLuminance) {
         super(settings.luminance(blockState -> blockState.get(LIT) ? onLuminance : offLuminance));
