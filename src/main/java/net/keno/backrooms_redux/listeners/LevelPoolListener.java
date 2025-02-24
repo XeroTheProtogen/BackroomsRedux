@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.keno.backrooms_redux.BackroomsRedux;
-import net.keno.backrooms_redux.levels.LevelPool;
+import net.keno.backrooms_redux.worldgen.levels.LevelPool;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 

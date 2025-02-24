@@ -1,4 +1,4 @@
-package net.keno.backrooms_redux.levels;
+package net.keno.backrooms_redux.worldgen.levels;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,6 +1,6 @@
 package net.keno.backrooms_redux.listeners;
 
-import net.keno.backrooms_redux.levels.LevelPool;
+import net.keno.backrooms_redux.worldgen.levels.LevelPool;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;

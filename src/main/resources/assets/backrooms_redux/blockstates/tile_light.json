@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": {"model": "backrooms_redux:block/tile_light_lit"},
+    "lit=false": {"model": "backrooms_redux:block/tile_light"}
+  }
+}

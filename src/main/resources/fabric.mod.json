@@ -19,7 +19,7 @@
 			"net.keno.backrooms_redux.BackroomsRedux"
 		],
 		"fabric-datagen": [
-			"net.keno.backrooms_redux.BackroomsReduxDataGenerator"
+			"net.keno.backrooms_redux.data.BackroomsReduxDataGenerator"
 		],
 		"limlib:registrar": [
 			"net.keno.backrooms_redux.registry.BRRegistrar"

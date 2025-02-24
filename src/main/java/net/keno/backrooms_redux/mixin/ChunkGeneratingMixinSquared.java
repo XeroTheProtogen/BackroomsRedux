@@ -26,7 +26,7 @@ public abstract class ChunkGeneratingMixinSquared {
         if (context.generator() instanceof LiminalChunkGenerator limChunkGen) {
             if (limChunkGen instanceof AbstractNbtChunkGenerator nbtChunkGenerator) {
                 if (nbtChunkGenerator instanceof DynamicNbtUpdater updater) {
-                    updater.cycle(nbtChunkGenerator);
+                    updater.update(nbtChunkGenerator);
                 }
             }
         }
