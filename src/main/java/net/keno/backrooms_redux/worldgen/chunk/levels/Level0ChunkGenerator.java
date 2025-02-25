@@ -16,7 +16,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -70,7 +69,7 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
         BlockPos pos = chunkRegion.getCenterPos().getStartPos();
         Random random = Random.create(LimlibHelper.blockSeed(pos));
 
-        if (random.nextBetween(1,25) < 15) {
+        if (random.nextBetween(1,32) < 32) {
             generateNbt(chunkRegion, pos, getDynamicGroup().pick("common",
                     random), Manipulation.random(random));
         } else {
@@ -85,8 +84,8 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
         int x = pos.getX();
         int z = pos.getZ();
         int y = pos.getY();
-        float remainderX = x % 8;
-        float remainderZ = z % 9;
+        float remainderX = x % 5;
+        float remainderZ = z % 6;
 
         if ((remainderX >= -1 && remainderX <= 1) && (remainderZ >= -1 && remainderZ <= 1)) {
             float remainderY = y % 5;

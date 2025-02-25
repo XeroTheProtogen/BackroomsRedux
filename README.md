@@ -63,7 +63,7 @@ Texture Designers: TB (Made textures for some of the blocks in Level 1)
 Lithostitched by Apollo
 
 ### Third-party assets
-Light hum sound originally provided by Zapsplat.
+Light hum sound originally provided by Freesound.
 
 ### Backrooms stories
 Canon used is the Backrooms Wikidot.
