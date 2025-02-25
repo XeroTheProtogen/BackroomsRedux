@@ -1,7 +1,9 @@
 {
   "block.backrooms_redux.moist_carpet": "Moist Carpet",
   "block.backrooms_redux.roof_tile": "Roof Tile",
+  "block.backrooms_redux.roof_tile_stairs": "Roof Tile Stairs",
   "block.backrooms_redux.tile_light": "Tile Light",
   "block.backrooms_redux.yellow_wallpaper": "Yellow Wallpaper",
+  "block.backrooms_redux.yellow_wallpaper_stairs": "Yellow Wallpaper Stairs",
   "itemGroup.br_wave_1": "BR: The Beginning"
 }

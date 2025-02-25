@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "backrooms_redux:block/roof_tile",
+    "side": "backrooms_redux:block/roof_tile",
+    "top": "backrooms_redux:block/roof_tile"
+  }
+}

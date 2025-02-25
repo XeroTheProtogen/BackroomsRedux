@@ -4,8 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.keno.backrooms_redux.BackroomsRedux;
 import net.keno.backrooms_redux.blocks.LampBlock;
-import net.keno.backrooms_redux.listeners.HeardData;
 import net.keno.backrooms_redux.registry.BRCommon;
+import net.keno.backrooms_redux.utils.DynamicUtils;
 import net.keno.backrooms_redux.worldgen.chunk.SimpleDynamicChunkGenerator;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.ludocrypt.limlib.api.world.Manipulation;
@@ -13,7 +13,14 @@ import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BarrelBlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.BlockMirror;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.BoundedRegionArray;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +42,10 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
 
     private static final NbtGroup STARTING_GROUP = NbtGroup
             .Builder.create(BackroomsRedux.modLoc("level_0"))
-            .with("level_0_common", 0, 3).build();
+            .with("common", 0, 6)
+            .with("uncommon", "claustrophobia", "dilapidation",
+                    "garden", "ramps")
+            .build();
 
     public static final MapCodec<Level0ChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BiomeSource.CODEC.stable().fieldOf("biome_source").forGetter(Level0ChunkGenerator::getBiomeSource)
@@ -47,7 +57,7 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
 
     @Override
     public NbtGroup getGroup() {
-        return HeardData.getLevelPool(LEVEL_0).convertToGroup();
+        return DynamicUtils.getPiecePoolGroup(LEVEL_0);
     }
 
     @Override
@@ -60,8 +70,14 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
         BlockPos pos = chunkRegion.getCenterPos().getStartPos();
         Random random = Random.create(LimlibHelper.blockSeed(pos));
 
-        generateNbt(chunkRegion, pos, getDynamicGroup().pick("level_0_common",
-                random), Manipulation.random(random));
+        if (random.nextBetween(1,25) < 15) {
+            generateNbt(chunkRegion, pos, getDynamicGroup().pick("common",
+                    random), Manipulation.random(random));
+        } else {
+            generateNbt(chunkRegion, pos, getDynamicGroup().pick("uncommon",
+                    random), Manipulation.of(random.nextBoolean() ? BlockMirror.NONE : BlockMirror.FRONT_BACK));
+        }
+
         return CompletableFuture.completedFuture(chunk);
     }
 
@@ -99,6 +115,12 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
         if (state.isOf(Blocks.WHITE_WOOL)) {
             region.setBlockState(pos, BRCommon.ROOF_TILE.getDefaultState(), Block.NOTIFY_ALL);
         }
+
+        if (state.isOf(Blocks.OAK_PLANKS)) {
+            if (random.nextBetween(1,5) == 5) {
+                region.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
+            }
+        }
     }
 
     @Override
@@ -108,11 +130,28 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
 
     @Override
     public int getWorldHeight() {
-        return 0;
+        return 256;
+    }
+
+    @Override
+    public int getMinimumY() {
+        return -32;
     }
 
     @Override
     public void appendDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
 
+    }
+
+    //TODO Fix loot table
+    @Override
+    public RegistryKey<LootTable> getContainerLootTable(LootableContainerBlockEntity container) {
+        BlockPos pos = container.getPos();
+        long seed = LimlibHelper.blockSeed(pos);
+        if (container instanceof BarrelBlockEntity) {
+            container.setLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE,
+                    BackroomsRedux.modLoc("chests/level_0/barrel")), seed);
+        }
+        return super.getContainerLootTable(container);
     }
 }

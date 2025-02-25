@@ -15,8 +15,9 @@ public class BRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).add(BRCommon.YELLOW_WALLPAPER);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(BRCommon.YELLOW_WALLPAPER, BRCommon.YELLOW_WALLPAPER_STAIRS);
         getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE).add(BRCommon.MOIST_CARPET,
-                BRCommon.ROOF_LIGHT, BRCommon.ROOF_TILE);
+                BRCommon.ROOF_LIGHT, BRCommon.ROOF_TILE, BRCommon.ROOF_TILE_STAIRS);
     }
 }

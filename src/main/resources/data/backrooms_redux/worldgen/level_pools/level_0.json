@@ -1,14 +1,20 @@
 {
   "base_pool": "backrooms_redux:level_0",
   "sub_pools": {
-    "level_0_common": [
-      "level_0_common_0",
-      "level_0_common_1",
-      "level_0_common_2",
-      "level_0_common_3",
-      "level_0_common_4",
-      "level_0_common_5",
-      "level_0_common_6"
+    "common": [
+      "common_0",
+      "common_1",
+      "common_2",
+      "common_3",
+      "common_4",
+      "common_5",
+      "common_6"
+    ],
+    "uncommon": [
+      "claustrophobia",
+      "dilapidation",
+      "garden",
+      "ramps"
     ]
   },
   "override": false

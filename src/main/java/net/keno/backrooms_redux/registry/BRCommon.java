@@ -8,6 +8,7 @@ import net.keno.backrooms_redux.worldgen.chunk.TestChunkGenerator;
 import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -41,7 +42,18 @@ public class BRCommon {
             new LampBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.LANTERN)
                     .strength(-1f, 3600f)
                     .registryKey(RegistryKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("tile_light"))),
-                    7, 0), new Item.Settings());
+                    10, 0), new Item.Settings());
+
+    public static final Block YELLOW_WALLPAPER_STAIRS = registerBlock("yellow_wallpaper_stairs",
+            new StairsBlock(YELLOW_WALLPAPER.getDefaultState(),
+                    AbstractBlock.Settings.copy(YELLOW_WALLPAPER).registryKey(RegistryKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("yellow_wallpaper_stairs")))),
+            new Item.Settings());
+
+    public static final Block ROOF_TILE_STAIRS = registerBlock("roof_tile_stairs",
+            new StairsBlock(ROOF_TILE.getDefaultState(),
+                    AbstractBlock.Settings.copy(ROOF_TILE).registryKey(RegistryKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("roof_tile_stairs")))),
+            new Item.Settings());
+
 
     private static void registerChunkGenerators() {
         if (BackroomsRedux.isDevEnvironment) {

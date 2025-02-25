@@ -2,6 +2,7 @@
   "values": [
     "backrooms_redux:moist_carpet",
     "backrooms_redux:tile_light",
-    "backrooms_redux:roof_tile"
+    "backrooms_redux:roof_tile",
+    "backrooms_redux:roof_tile_stairs"
   ]
 }

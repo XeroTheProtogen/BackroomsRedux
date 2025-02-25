@@ -13,9 +13,17 @@ public class BRModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSimpleCubeAll(BRCommon.ROOF_TILE);
+        // Texture Pools
+        BlockStateModelGenerator.BlockTexturePool yellowWallpaperPool
+                = blockStateModelGenerator.registerCubeAllModelTexturePool(BRCommon.YELLOW_WALLPAPER);
+        BlockStateModelGenerator.BlockTexturePool roofTilePool
+                = blockStateModelGenerator.registerCubeAllModelTexturePool(BRCommon.ROOF_TILE);
+
         blockStateModelGenerator.registerSimpleCubeAll(BRCommon.MOIST_CARPET);
-        blockStateModelGenerator.registerSimpleCubeAll(BRCommon.YELLOW_WALLPAPER);
+
+        // Stairs
+        yellowWallpaperPool.stairs(BRCommon.YELLOW_WALLPAPER_STAIRS);
+        roofTilePool.stairs(BRCommon.ROOF_TILE_STAIRS);
     }
 
     @Override

@@ -46,8 +46,9 @@ public class BRRegistrar implements LimlibRegistrar {
 
     public static final LimlibWorld LEVEL_0_WORLD = registerLevel(new DimensionType(OptionalLong.empty(),
             false, false, false, false, 2.0f,
-            false, false, -32, 256, 5, BlockTags.INFINIBURN_OVERWORLD, Identifier.ofVanilla("the_end"),
-            0f, new DimensionType.MonsterSettings(false, false,
+            false, false, -32, 256, 4, BlockTags.INFINIBURN_OVERWORLD,
+                    Identifier.ofVanilla("overworld"), 0f,
+                    new DimensionType.MonsterSettings(false, false,
             UniformIntProvider.create(0, 6), 7)), Level0ChunkGenerator.LEVEL_0,
             registry -> new Level0ChunkGenerator(new FixedBiomeSource(registry
                     .get(RegistryKeys.BIOME)
