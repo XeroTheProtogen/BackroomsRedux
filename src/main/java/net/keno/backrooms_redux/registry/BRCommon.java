@@ -81,5 +81,6 @@ public class BRCommon {
     public static void init() {
         registerChunkGenerators();
         BRItemGroups.init();
+        BRSounds.init();
     }
 }

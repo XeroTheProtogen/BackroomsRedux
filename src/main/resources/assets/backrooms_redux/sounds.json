@@ -1,0 +1,10 @@
+{
+  "level_0.light_hum_buzz": {
+    "sounds": [
+      {
+        "name": "backrooms_redux:ambient/level_0/light_hum_buzz",
+        "stream": true
+      }
+    ]
+  }
+}

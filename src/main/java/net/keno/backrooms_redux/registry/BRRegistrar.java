@@ -7,7 +7,10 @@ import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
 import net.ludocrypt.limlib.api.LimlibRegistrar;
 import net.ludocrypt.limlib.api.LimlibRegistryHooks;
 import net.ludocrypt.limlib.api.LimlibWorld;
+import net.ludocrypt.limlib.api.effects.sound.SoundEffects;
+import net.ludocrypt.limlib.api.effects.sound.reverb.StaticReverbEffect;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
+import net.minecraft.registry.MutableRegistry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -21,6 +24,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
+import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.function.Function;
 
@@ -55,6 +59,13 @@ public class BRRegistrar implements LimlibRegistrar {
                     .getOptional(BRBiomes.LEVEL_0_BIOME)
                     .get())));
 
+    // Sound Effects
+    public static final SoundEffects LIGHT_HUM = new SoundEffects(Optional.of(new StaticReverbEffect
+            .Builder().setDecayHFRatio(1.5f).build()),
+            Optional.empty(),
+            Optional.of(BRSounds.HUM_BUZZ_MUSIC));
+
+
     public static <e extends AbstractNbtChunkGenerator> LimlibWorld registerLevel(DimensionType type, Identifier id,
                                                                                   Function<LimlibWorld.RegistryProvider, e> generator) {
         return new LimlibWorld(() -> type, registry -> new DimensionOptions(registry
@@ -87,5 +98,14 @@ public class BRRegistrar implements LimlibRegistrar {
                             0x000000, null,
                             biome -> biome.precipitation(false).temperature(0.5f).downfall(0.3f)), RegistryEntryInfo.DEFAULT);
         });
+
+        LimlibRegistryHooks.hook(SoundEffects.SOUND_EFFECTS_KEY,
+                (infoLookup, registryKey, registry) -> {
+                    registerSoundEffect(registry, "level_0", LIGHT_HUM);
+                });
+    }
+
+    public static <e extends SoundEffects> void registerSoundEffect(MutableRegistry<SoundEffects> registry, String id, e soundEffects) {
+        registry.add(RegistryKey.of(SoundEffects.SOUND_EFFECTS_KEY, BackroomsRedux.modLoc(id)), soundEffects, RegistryEntryInfo.DEFAULT);
     }
 }
