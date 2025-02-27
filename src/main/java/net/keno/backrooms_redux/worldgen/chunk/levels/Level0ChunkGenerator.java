@@ -13,7 +13,6 @@ import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.loot.LootTable;
 import net.minecraft.nbt.NbtCompound;
@@ -44,6 +43,7 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
             .with("common", 0, 6)
             .with("uncommon", "claustrophobia", "dilapidation",
                     "garden", "ramps")
+            .with("rare", "misfortune", "plates")
             .build();
 
     public static final MapCodec<Level0ChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -69,12 +69,17 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
         BlockPos pos = chunkRegion.getCenterPos().getStartPos();
         Random random = Random.create(LimlibHelper.blockSeed(pos));
 
-        if (random.nextBetween(1,32) < 32) {
+        if (random.nextBetween(0,31) < 31) {
             generateNbt(chunkRegion, pos, getDynamicGroup().pick("common",
                     random), Manipulation.random(random));
         } else {
-            generateNbt(chunkRegion, pos, getDynamicGroup().pick("uncommon",
-                    random), Manipulation.of(random.nextBoolean() ? BlockMirror.NONE : BlockMirror.FRONT_BACK));
+            if (random.nextBetween(0,3) < 3) {
+                generateNbt(chunkRegion, pos, getDynamicGroup().pick("uncommon",
+                        random), Manipulation.random(random));
+            } else {
+                generateNbt(chunkRegion, pos, getDynamicGroup().pick("rare",
+                        random), Manipulation.random(random));
+            }
         }
 
         return CompletableFuture.completedFuture(chunk);
@@ -115,8 +120,8 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
             region.setBlockState(pos, BRCommon.ROOF_TILE.getDefaultState(), Block.NOTIFY_ALL);
         }
 
-        if (state.isOf(Blocks.OAK_PLANKS)) {
-            if (random.nextBetween(1,5) == 5) {
+        if (state.isOf(Blocks.DARK_OAK_PLANKS)) {
+            if (random.nextBetween(1,10) == 10) {
                 region.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
             }
         }
@@ -145,12 +150,10 @@ public class Level0ChunkGenerator extends SimpleDynamicChunkGenerator {
     //TODO Fix loot table
     @Override
     public RegistryKey<LootTable> getContainerLootTable(LootableContainerBlockEntity container) {
-        BlockPos pos = container.getPos();
-        long seed = LimlibHelper.blockSeed(pos);
-        if (container instanceof BarrelBlockEntity) {
-            container.setLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE,
-                    BackroomsRedux.modLoc("chests/level_0/barrel")), seed);
+        if (container.getCachedState().isOf(Blocks.BARREL)) {
+            return RegistryKey.of(RegistryKeys.LOOT_TABLE,
+                    BackroomsRedux.modLoc("chests/level_0/barrel"));
         }
-        return super.getContainerLootTable(container);
+        return container.getLootTable();
     }
 }

@@ -24,4 +24,6 @@ public class LampBlock extends Block {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(LIT);
     }
+
+
 }

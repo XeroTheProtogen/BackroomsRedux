@@ -15,6 +15,10 @@
       "dilapidation",
       "garden",
       "ramps"
+    ],
+    "rare": [
+      "misfortune",
+      "plates"
     ]
   },
   "override": false
