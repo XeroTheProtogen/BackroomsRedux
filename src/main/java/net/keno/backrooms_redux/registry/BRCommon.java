@@ -3,12 +3,11 @@ package net.keno.backrooms_redux.registry;
 import com.mojang.serialization.MapCodec;
 import net.keno.backrooms_redux.BackroomsRedux;
 import net.keno.backrooms_redux.blocks.LampBlock;
+import net.keno.backrooms_redux.data.holders.pos_determ.*;
 import net.keno.backrooms_redux.items.BRItemGroups;
 import net.keno.backrooms_redux.worldgen.chunk.TestChunkGenerator;
 import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -16,10 +15,28 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class BRCommon {
+    public static final BlockSetType WAREHOUSE = new BlockSetType("warehouse", true, true, true,
+                     BlockSetType.ActivationRule.MOBS, BlockSoundGroup.METAL,
+                     SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN,
+            SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN,
+            SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON,
+            SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON);
+
+    // Pos Determiners
+    public static final DeterminerType<ExactPosDeterminer> EXACT_POS =
+            DeterminerType.register(BackroomsRedux.modLoc("exact"), ExactPosDeterminer.CODEC);
+    public static final DeterminerType<RandOffsetPosDeterminer> RAND_OFFSET_POS =
+            DeterminerType.register(BackroomsRedux.modLoc("rand_offset"), RandOffsetPosDeterminer.CODEC);
+    public static final DeterminerType<NoPosDeterminer> NO_POS =
+            DeterminerType.register(BackroomsRedux.modLoc("no_pos"), NoPosDeterminer.CODEC);
+    public static final DeterminerType<OverridePosDeterminer> OVERRIDE_POS =
+            DeterminerType.register(BackroomsRedux.modLoc("override_pos"), OverridePosDeterminer.CODEC);
+
     // Items
 
     // Blocks
@@ -50,9 +67,24 @@ public class BRCommon {
             new Item.Settings());
 
     public static final Block ROOF_TILE_STAIRS = registerBlock("roof_tile_stairs",
-            new StairsBlock(ROOF_TILE.getDefaultState(),
-                    AbstractBlock.Settings.copy(ROOF_TILE).registryKey(RegistryKey.of(RegistryKeys.BLOCK, BackroomsRedux.modLoc("roof_tile_stairs")))),
+            new StairsBlock(ROOF_TILE.getDefaultState(), AbstractBlock.Settings.copy(ROOF_TILE)
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK,
+                            BackroomsRedux.modLoc("roof_tile_stairs")))),
             new Item.Settings());
+
+    public static final Block WAREHOUSE_CONCRETE = registerBlock("warehouse_concrete",
+            new Block(AbstractBlock.Settings.copy(Blocks.BLACK_CONCRETE)
+                    .requiresTool()
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK,
+                            BackroomsRedux.modLoc("warehouse_concrete")))),
+            new Item.Settings());
+
+    public static final Block WAREHOUSE_DOOR = registerBlock("warehouse_door",
+            new DoorBlock(WAREHOUSE, AbstractBlock.Settings
+                    .copy(Blocks.IRON_DOOR).registryKey(RegistryKey.of(RegistryKeys.BLOCK,
+                            BackroomsRedux.modLoc("warehouse_door")))),
+            new Item.Settings());
+
 
 
     private static void registerChunkGenerators() {

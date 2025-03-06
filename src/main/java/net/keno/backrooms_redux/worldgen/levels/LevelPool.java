@@ -18,9 +18,9 @@ public class LevelPool {
     public static final Codec<LevelPool> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("base_pool").stable().forGetter(LevelPool::getBasePool),
-                    Codec.unboundedMap(Codec.STRING, Codec.list(Codec.STRING))
-                            .fieldOf("sub_pools").forGetter(LevelPool::getSubPools),
-                    Codec.BOOL.fieldOf("override").stable().forGetter(levelPool -> levelPool.shouldOverride)
+                    Codec.unboundedMap(Codec.STRING, Codec.list(Codec.STRING)).fieldOf("sub_pools").forGetter(LevelPool::getSubPools),
+                    Codec.BOOL.optionalFieldOf("override", false)
+                            .stable().forGetter(levelPool -> levelPool.shouldOverride)
             ).apply(instance, LevelPool::new));
 
     public LevelPool(Identifier basePool, Map<String, List<String>> subPools, boolean shouldOverride) {

@@ -1,0 +1,40 @@
+{
+  "pool_id": "minecraft:overworld",
+  "possible_destinations": {
+    "ids_and_weights": [
+      {
+        "id": "backrooms_redux:fail",
+        "chance": 0.8
+      },
+      {
+        "id": "the_nether",
+        "chance": 0.5
+      },
+      {
+        "id": "the_end",
+        "chance": 0.2
+      },
+      {
+        "id": "backrooms_redux:level_0",
+        "chance": 0.1
+      }
+    ]
+  },
+  "pos_determiners": {
+    "the_end": {
+      "type": "backrooms_redux:exact",
+      "pos": [50, 40, 0]
+    },
+    "the_nether": {
+      "type": "backrooms_redux:override_pos",
+      "y": 70
+    },
+    "backrooms_redux:level_0": {
+      "type": "backrooms_redux:override_pos",
+      "y": 3
+    },
+    "backrooms_redux:fail": {
+      "type": "backrooms_redux:no_pos"
+    }
+  }
+}

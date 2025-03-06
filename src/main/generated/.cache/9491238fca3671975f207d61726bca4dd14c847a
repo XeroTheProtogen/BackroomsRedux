@@ -1,3 +1,5 @@
-// 1.21.3	2025-02-25T10:35:52.4959132	Backrooms Redux/Tags for minecraft:block
+// 1.21.3	2025-03-06T20:40:45.8295496	Backrooms Redux/Tags for minecraft:block
+d9a30118cdb08ca483f986221279839c47d89395 data\minecraft\tags\block\mineable\pickaxe.json
+d9a30118cdb08ca483f986221279839c47d89395 data\minecraft\tags\block\needs_stone_tool.json
 e215742a35924873dd490ab2e3852c86dc0d04c7 data\minecraft\tags\block\wither_immune.json
 ba10325aa0314207865d67233c3f530fdc9300e1 data\minecraft\tags\block\mineable\axe.json

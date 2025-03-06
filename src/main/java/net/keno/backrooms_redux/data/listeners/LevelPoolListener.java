@@ -1,4 +1,4 @@
-package net.keno.backrooms_redux.listeners;
+package net.keno.backrooms_redux.data.listeners;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
@@ -20,11 +20,13 @@ public class LevelPoolListener implements SimpleResourceReloadListener<Map<Ident
     public CompletableFuture<Map<Identifier, LevelPool>> load(ResourceManager resourceManager, Executor executor) {
         return CompletableFuture.supplyAsync(() -> {
             HashMap<Identifier, LevelPool> map = new HashMap<>();
+
             for (var resource : resourceManager.findResources("worldgen/level_pools", id
                     -> id.getPath().endsWith(".json")).entrySet()) {
                 try (var inputStream = resource.getValue().getInputStream()) {
                     var json = BackroomsRedux.GSON.fromJson(new InputStreamReader(inputStream), JsonObject.class);
-                    LevelPool pool = LevelPool.CODEC.decode(JsonOps.INSTANCE, json).getOrThrow().getFirst();
+
+                    LevelPool pool = LevelPool.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
                     if (map.containsKey(pool.getBasePool()) && !pool.shouldOverride) {
                         Identifier id = pool.getBasePool();
                         for (String subPool : pool.getSubPools().keySet()) {
@@ -41,13 +43,14 @@ public class LevelPoolListener implements SimpleResourceReloadListener<Map<Ident
                     e.printStackTrace();
                 }
             }
+
             return Map.copyOf(map);
         }, executor);
     }
 
     @Override
     public CompletableFuture<Void> apply(Map<Identifier, LevelPool> levelPool, ResourceManager resourceManager, Executor executor) {
-        return CompletableFuture.runAsync(() -> HeardData.loadData(levelPool), executor);
+        return CompletableFuture.runAsync(() -> HeardData.loadLevelPoolData(levelPool), executor);
     }
 
     @Override

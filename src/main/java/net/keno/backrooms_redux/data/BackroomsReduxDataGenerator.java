@@ -10,5 +10,6 @@ public class BackroomsReduxDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(BRModelProvider::new);
 		pack.addProvider(BRBlockTagProvider::new);
 		pack.addProvider(BRLangGen::new);
+		pack.addProvider(BRLootTableGenerator::new);
 	}
 }

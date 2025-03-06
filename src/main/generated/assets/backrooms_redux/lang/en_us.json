@@ -1,8 +1,14 @@
 {
+  "backrooms_redux.cannot_noclip": "You somehow realize no-clipping wouldn't work here",
+  "backrooms_redux.fail_noclip": "You get hurt trying to no-clip. Ouch",
+  "backrooms_redux.key": "Backrooms Redux",
+  "backrooms_redux.key.no_clip": "No-Clip",
   "block.backrooms_redux.moist_carpet": "Moist Carpet",
   "block.backrooms_redux.roof_tile": "Roof Tile",
   "block.backrooms_redux.roof_tile_stairs": "Roof Tile Stairs",
   "block.backrooms_redux.tile_light": "Tile Light",
+  "block.backrooms_redux.warehouse_concrete": "Warehouse Concrete",
+  "block.backrooms_redux.warehouse_door": "Warehouse Door",
   "block.backrooms_redux.yellow_wallpaper": "Yellow Wallpaper",
   "block.backrooms_redux.yellow_wallpaper_stairs": "Yellow Wallpaper Stairs",
   "itemGroup.br_wave_1": "BR: The Beginning"

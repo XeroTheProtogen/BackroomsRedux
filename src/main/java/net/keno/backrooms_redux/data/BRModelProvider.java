@@ -20,6 +20,8 @@ public class BRModelProvider extends FabricModelProvider {
                 = blockStateModelGenerator.registerCubeAllModelTexturePool(BRCommon.ROOF_TILE);
 
         blockStateModelGenerator.registerSimpleCubeAll(BRCommon.MOIST_CARPET);
+        blockStateModelGenerator.registerDoor(BRCommon.WAREHOUSE_DOOR);
+        blockStateModelGenerator.registerSimpleCubeAll(BRCommon.WAREHOUSE_CONCRETE);
 
         // Stairs
         yellowWallpaperPool.stairs(BRCommon.YELLOW_WALLPAPER_STAIRS);

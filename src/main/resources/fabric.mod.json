@@ -18,6 +18,9 @@
 		"main": [
 			"net.keno.backrooms_redux.BackroomsRedux"
 		],
+		"client": [
+			"net.keno.backrooms_redux.client.BRClient"
+		],
 		"fabric-datagen": [
 			"net.keno.backrooms_redux.data.BackroomsReduxDataGenerator"
 		],

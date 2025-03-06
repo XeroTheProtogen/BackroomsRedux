@@ -3,16 +3,10 @@ package net.keno.backrooms_redux.worldgen.chunk;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.keno.backrooms_redux.BackroomsRedux;
-import net.keno.backrooms_redux.blocks.LampBlock;
-import net.keno.backrooms_redux.listeners.HeardData;
-import net.keno.backrooms_redux.registry.BRCommon;
+import net.keno.backrooms_redux.data.listeners.HeardData;
 import net.ludocrypt.limlib.api.world.LimlibHelper;
 import net.ludocrypt.limlib.api.world.NbtGroup;
 import net.ludocrypt.limlib.api.world.chunk.AbstractNbtChunkGenerator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LightBlock;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.collection.BoundedRegionArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -25,7 +19,6 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.noise.NoiseConfig;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /** A chunk generator used to test experimental API, enabled only in dev environments */

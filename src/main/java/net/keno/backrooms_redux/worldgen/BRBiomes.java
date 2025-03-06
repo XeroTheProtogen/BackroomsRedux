@@ -1,10 +1,12 @@
 package net.keno.backrooms_redux.worldgen;
 
+import net.keno.backrooms_redux.BackroomsRedux;
 import net.keno.backrooms_redux.registry.BRRegistrar;
 import net.keno.backrooms_redux.worldgen.chunk.levels.Level0ChunkGenerator;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
@@ -16,6 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 public class BRBiomes {
+    public static final TagKey<Biome> LONELY_BIOMES = TagKey.of(RegistryKeys.BIOME,
+            BackroomsRedux.modLoc("lonely_biomes"));
+
     public static final RegistryKey<Biome> TEST_BIOME = RegistryKey.of(RegistryKeys.BIOME, BRRegistrar.TEST);
 
     public static final RegistryKey<Biome> LEVEL_0_BIOME = RegistryKey.of(RegistryKeys.BIOME, Level0ChunkGenerator.LEVEL_0);

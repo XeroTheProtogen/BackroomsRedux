@@ -13,7 +13,9 @@ import java.util.List;
 public record WeightedIdentifierList(List<Pair<Identifier, Float>> idsAndWeights) {
     public static final Codec<WeightedIdentifierList> CODEC =
             RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.pair(Identifier.CODEC, Codec.FLOAT).listOf().fieldOf("ids_and_weights")
+                    Codec.pair(Identifier.CODEC.fieldOf("id").codec(),
+                                    Codec.FLOAT.fieldOf("chance").codec())
+                            .listOf().fieldOf("ids_and_weights")
                             .forGetter(WeightedIdentifierList::idsAndWeights)
             ).apply(instance, instance.stable(WeightedIdentifierList::new)));
 
@@ -26,7 +28,7 @@ public record WeightedIdentifierList(List<Pair<Identifier, Float>> idsAndWeights
         }
     }
 
-    public float calculateTotalWeight() {
+    private float calculateTotalWeight() {
         float weight = 0;
         for (Pair<Identifier, Float> pair : idsAndWeights) {
             weight += pair.getSecond() * 10;
@@ -46,5 +48,9 @@ public record WeightedIdentifierList(List<Pair<Identifier, Float>> idsAndWeights
             }
         }
         return Either.right(false);
+    }
+
+    public void addToList(Identifier id, float weight) {
+        this.idsAndWeights.add(new Pair<>(id, weight));
     }
 }
