@@ -33,7 +33,7 @@ Backrooms Redux intends to add levels 0-11, with levels being released in waves 
   - [ ] Level 7, Thalassophobia
   - [ ] Level 8, Cave System
 
-- [ ] Wave 4: "An Endless Journey Truly Begins"
+- [ ] Wave 4: "An Endless Journey Begins"
   - [ ] Level 9, The Suburbs
   - [ ] Level 10, The Bumper Crop AKA Fields of Wheat
   - [ ] Level 11, The Endless City
